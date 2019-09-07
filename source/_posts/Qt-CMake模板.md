@@ -1,0 +1,210 @@
+---
+title: Qt CMake模板
+date: 2018-12-16 11:41:40
+tags:
+  - Qt
+  - CMake
+---
+
+## CMake模板
+
+每次建立工程都要思考一番，按照如下目录结构建立好后
+
+```
+├─assets	#图片
+├─build		#构建目录
+├─debug		#debug构建后的二进制文件
+├─doc		#文档
+├─lib		#第三方库
+├─release	#release构建后的二进制文件
+├─res		#Qt的qrc文件和rc文件
+└─src		#源码目录
+```
+
+工程目录下的`CMakeLists.txt`文件如下：
+
+```cmake
+cmake_minimum_required(VERSION 3.12)
+project(xxxx)
+
+add_subdirectory(src)
+```
+
+`src`目录下`CMakeLists.txt`文件如下：
+
+<!-- more -->
+
+```cmake
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+find_package(Qt5Core CONFIG REQUIRED)
+find_package(Qt5Widgets CONFIG REQUIRED)
+find_package(Qt5Gui CONFIG REQUIRED)
+find_package(Qt5OpenGL CONFIG REQUIRED)
+#find_package(Qt5PrintSupport CONFIG REQUIRED)
+#find_package(Qt5TextToSpeech CONFIG REQUIRED)
+set(CMAKE_CXX_COMPILER g++)
+set(CMAKE_C_COMPILER gcc)
+set(DEFINES "-DUNICODE -D_UNICODE -DWIN32 -DQT_DEPRECATED_WARNINGS")
+set(CMAKE_C_FLAGS "-fno-keep-inline-dllexport -fopenmp -march=i686 -mtune=core2 -Wa,-mbig-obj -O2 -Wall -W -Wextra ${DEFINES}")
+set(CMAKE_CXX_FLAGS "-fno-keep-inline-dllexport -fopenmp -O2 -g -Wall -W -Wextra -fexceptions -mthreads ${DEFINES}")
+
+if (CMAKE_BUILD_TYPE MATCHES Release)
+    message("release compile!!")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-Wl,-s -Wl,-subsystem,windows -mthreads")
+    add_definitions(-DQT_NO_DEBUG)
+    set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/release)
+endif (CMAKE_BUILD_TYPE MATCHES Release)
+
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    message("debug compile!!")
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-mthreads")
+    set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/debug)
+endif (CMAKE_BUILD_TYPE MATCHES Debug)
+
+aux_source_directory(${PROJECT_SOURCE_DIR}/src SRC)
+include_directories(${PROJECT_SOURCE_DIR}/src)
+
+#set(UI ${PROJECT_SOURCE_DIR}/res/ui.qrc)
+
+add_executable(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME}
+        Qt5Core
+        Qt5Widgets
+        Qt5Gui
+        Qt5OpenGL)
+```
+
+
+
+具体作用不解释，可以参考CMake手册和Qt手册关于CMake的部分
+
+2019/4/21 补充：
+
+1. 可以通过CMAKE_OS_NAME来判断用来编译的是什么环境
+
+2. 从Qt官网下载的安装包CMake会找不到库的路径，可以添加以下一句解决
+
+   ```cmake
+   set(CMAKE_PREFIX_PATH qt-path/gcc_64)
+   ```
+
+   其中qt-path为qt库的路径
+
+3. 链接时把库名改为如下方式可以减少include目录的复杂程度
+
+   ```cmake
+   target_link_libraries(${PROJECT_NAME}
+           Qt5::Core
+           Qt5::Widgets
+           Qt5::Gui
+           Qt5::OpenGL)
+   ```
+
+2019/4/28 补充
+
+1. CMake可以 执行shell命令并且获取输出和返回值
+
+```cmake
+find_program(GIT git)
+
+if ("${GIT}" STREQUAL "GIT-NOTFOUND")
+    message(WARNING "找不到git程序,无法更新git提交记录")
+    set(VERSION_REVISION "找不到提交号")
+    set(VERSION_BRANCH "找不到提交分支")
+else ()
+    unset(GIT_VERSION_NUM CACHE)
+    unset(GIT_BRANCH CACHE)
+    message("找到git,读取分支信息")
+    execute_process(
+            COMMAND git log -1 --format=%H
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+            OUTPUT_VARIABLE GIT_COMMIT
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+            RESULT_VARIABLE GIT_COMMIT_RESULT
+    )
+    if (NOT GIT_COMMIT_RESULT EQUAL 0)
+        message(FATAL_ERROR "找不到git提交的id号")
+    else ()
+        message("提交号 ${GIT_COMMIT}")
+    endif ()
+
+    execute_process(
+            COMMAND git symbolic-ref --short HEAD
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+            OUTPUT_VARIABLE GIT_BRANCH
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+            RESULT_VARIABLE GIT_BRANCH_RESULT
+    )
+    if (NOT GIT_BRANCH_RESULT EQUAL 0)
+        message(FATAL_ERROR "找不到git当前分支名称")
+    else ()
+        message("分支名称 ${GIT_BRANCH}")
+    endif ()
+
+    execute_process(
+            #            COMMAND env LC_ALL=C date "+%Y-%m-%d %H:%M:%S %Z"
+            COMMAND env LC_ALL=C date "+%m %b %Y %H:%M:%S %Z"
+            OUTPUT_VARIABLE DATE
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+            RESULT_VARIABLE DATE_RESULT
+    )
+    if (NOT DATE_RESULT EQUAL 0)
+        message(FATAL_ERROR "无法读取当前时间")
+    else ()
+        message("编译时间 ${DATE}")
+    endif ()
+
+    set(VERSION_COMMIT ${GIT_COMMIT})
+    set(VERSION_BRANCH ${GIT_BRANCH})
+    set(VERSION_BUILD_DATE ${DATE})
+endif ()
+```
+
+2. CMake可以替换模板文件生成源码
+
+模板文件如下
+
+```c++
+#ifndef VERSION_HPP
+#define VERSION_HPP
+
+// 编译版本信息
+#define VERSION_MAJOR @VERSION_MAJOR@
+#define VERSION_MINOR @VERSION_MINOR@
+#define VERSION_MICRO @VERSION_MICRO@
+#define VERSION_COMMIT "@VERSION_COMMIT@"
+#define VERSION_BRANCH "@VERSION_BRANCH@"
+#define VERSION_BUILD_DATE "@VERSION_BUILD_DATE@"
+#define VERSION_QT "@VERSION_QT@"
+#define VERSION_QT_PLATFORM "@VERSION_QT_PLATFORM@"
+
+#endif //VERSION_HPP
+```
+
+在CMake里面相应设置值
+
+```cmake
+set(VERSION_QT ${QT_VERSION})
+set(VERSION_QT_PLATFORM ${QT_PLATFORM})
+```
+
+左边是文件里面的 @@中间的名称，右边是CMake变量，然后编写替换的文件名称就可以 了
+
+```cmake
+configure_file(src/Version.hpp.in src/Version.hpp @ONLY)
+```
+
+下次执行CMake会自动在编译目录下生成.hpp文件，所以还要加上include目录才能包含头文件
+
+```cmake
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
+```
+
+[CMake](https://cmake.org/cmake/help/latest/)
+
+[Qt CMake](http://doc.qt.io/qt-5/cmake-manual.html)
