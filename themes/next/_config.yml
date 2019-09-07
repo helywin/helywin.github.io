@@ -737,7 +737,7 @@ add_this_id:
 # ---------------------------------------------------------------
 
 # Baidu Analytics
-baidu_analytics: 82483a4063048e6739e27af68e9a44d3
+baidu_analytics: #app_id
 
 # Growingio Analytics
 # Copyright 2015-2018 GrowingIO, Inc. More info available at https://www.growingio.com
@@ -788,10 +788,10 @@ busuanzi_count:
   post_views_icon: eye
 
 # Tencent analytics
-tencent_analytics: # <app_id>
+tencent_analytics: 66469420 # <app_id>
 
 # Tencent MTA
-tencent_mta: # <app_id>
+tencent_mta: 500696380 # <app_id>
 
 
 # ---------------------------------------------------------------
