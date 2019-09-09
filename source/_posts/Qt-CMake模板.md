@@ -105,7 +105,7 @@ target_link_libraries(${PROJECT_NAME}
            Qt5::OpenGL)
    ```
 
-2019/4/28 补充
+### 2019/4/28 补充
 
 1. CMake可以 执行shell命令并且获取输出和返回值
 
@@ -204,6 +204,40 @@ configure_file(src/Version.hpp.in src/Version.hpp @ONLY)
 ```cmake
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
 ```
+
+### 2019/9/9 补充
+
+1. CMake获取时间跨平台方法
+
+原来的方式获取时间Windows上就会有问题，如下命令代替即可
+
+```cmake
+string(TIMESTAMP DATE "%m %b %Y %H:%M:%S")
+```
+
+时间信息就存储在`DATE`里面了
+
+参考连接：https://cmake.org/cmake/help/v3.5/command/string.html#timestamp
+
+2. CMake调用pkg-config
+
+由于有些库不能通过CMake的`find_package`查找，但是可以通过pkg-config定位，比如breakpad
+
+包的名称可以通过`pkg-config --list-all`查找
+
+```cmake
+include(FindPkgConfig)
+pkg_check_modules(BREAKPAD_CLIENT REQUIRED breakpad-client)
+if (${BREAKPAD_CLIENT_FOUND})
+	MESSAGE(STATUS "找到breakpad-client库: ${BREAKPAD_CLIENT_INCLUDE_DIRS}")
+endif()
+include_directories(${BREAKPAD_CLIENT_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${BREAKPAD_CLIENT_LIBRARIES})
+```
+
+参考链接：https://cmake.org/cmake/help/v3.5/module/FindPkgConfig.html?#module:FindPkgConfig
+
+总参考链接：
 
 [CMake](https://cmake.org/cmake/help/latest/)
 
