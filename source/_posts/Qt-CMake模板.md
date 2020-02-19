@@ -235,6 +235,61 @@ include_directories(${BREAKPAD_CLIENT_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${BREAKPAD_CLIENT_LIBRARIES})
 ```
 
+### 2020/2/19 补充
+
+1. 增加msvc编译参数，增加release模式生成pdb文件
+
+```cmake
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    message("Debug编译")
+    set(PROJECT_BINARY_DIR ${PROJECT_SOURCE_DIR}/debug)
+    add_definitions(-DDEBUG) # 加此宏是为了激活代码里面有的#ifdef DEBUG宏
+else () #CMAKE_BUILD_TYPE MATCHES Release
+    message("Release编译")
+    set(PROJECT_BINARY_DIR ${PROJECT_SOURCE_DIR}/release)
+    # 屏蔽Qt警告和调试
+    add_definitions(-DQT_NO_DEBUG)
+    add_definitions(-DQT_NO_DEBUG_OUTPUT)
+    add_definitions(-DQT_DEPRECATED_WARNINGS)
+    set(SUBSYSTEM_TYPE "WIN32")
+endif ()
+
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
+
+# 设置编译参数
+if (UNIX)
+    set(DEFINES "-Wunused-parameter")
+    set(CMAKE_CXX_FLAGS_DEBUG "-pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC ${DEFINES}")
+    set(CMAKE_C_FLAGS_DEBUG "-pipe -O2 -Wall -W -D_REENTRANT -fPIC ${DEFINES}")
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-fno-pie")
+
+    set(CMAKE_CXX_FLAGS_RELEASE "-pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC ${DEFINES}")
+    set(CMAKE_C_FLAGS_RELEASE "-pipe -O2 -Wall -W -D_REENTRANT -fPIC ${DEFINES}")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-fno-pie")
+elseif (WIN32)
+    if (MSVC)
+        set(DEFINES_DEBUG "-D_WINDOWS -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 /wd4100")
+        set(CMAKE_CXX_FLAGS_DEBUG "/utf-8 /sdl /EHsc -nologo -Zc:wchar_t -FS -Zc:strictStrings -Zi -MDd -W3 -w44456 -w44457 -w44458 ${DEFINES_DEBUG}")
+        set(CMAKE_C_FLAGS_DEBUG "/utf-8 /sdl -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus /FS -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -EHsc ${DEFINES_DEBUG}")
+        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "/NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /DEBUG")
+        # set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
+        # release模式下生成pdb用于调试
+        set(DEFINES_RELEASE "-D_WINDOWS -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG")
+        set(CMAKE_C_FLAGS_RELEASE "/utf-8 /sdl -nologo -Zc:wchar_t -FS -Zi -Zc:strictStrings -O2 -MD -W3 -w44456 -w44457 -w44458 ${DEFINES_RELEASE}")
+        set(CMAKE_CXX_FLAGS_RELEASE "/utf-8 /sdl -nologo -Zc:wchar_t -FS -Zi -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -MD -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -EHsc ${DEFINES_RELEASE}")
+        set(CMAKE_EXE_LINKER_FLAGS_RELEASE "/NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /DEBUG /OPT:REF /OPT:ICF")# /NODEFAULTLIB:MSVCRT /NODEFAULTLIB:LIBC
+    else ()
+        message(FATAL_ERROR 不支持其他平台)
+    endif ()
+endif ()
+```
+其中`CMAKE_CXX_FLAGS_RELEASE`的`-Zi`和`CMAKE_EXE_LINKER_FLAGS_RELEASE`的`/DEBUG /OPT:REF /OPT:ICF`是生成pdb添加的
+
+参考链接：
+
+https://stackoverflow.com/questions/28178978/how-to-generate-pdb-files-for-release-build-with-cmake-flags
+
 参考链接：https://cmake.org/cmake/help/v3.5/module/FindPkgConfig.html?#module:FindPkgConfig
 
 总参考链接：
