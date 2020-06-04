@@ -16,3 +16,11 @@ tags:
 3. github.global.ssl.fastly.net
 
 把查到的ip地址写入host，Windows在C:\windows\system32\drivers\etc\hosts，Linux在/etc/hosts，然后刷新dns缓存
+
+## 下载加速
+
+1. 复制下载的url，例如
+```https://github.com/googlefonts/noto-cjk/archive/NotoSansV2.001.zip```
+2. 替换域名为`github-download.oss-cn-hongkong.aliyuncs.com`
+```https://github-download.oss-cn-hongkong.aliyuncs.com/googlefonts/noto-cjk/archive/NotoSansV2.001.zip```
+3. 复制到下载工具下载即可
