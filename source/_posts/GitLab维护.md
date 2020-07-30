@@ -1,4 +1,11 @@
-# 升级
+---
+title: GitLab维护
+date: 2020-07-30 09:15:47
+tags:	
+	- GitLab
+---
+
+## 升级
 
 到清华大学镜像下载apt包
 
@@ -12,7 +19,7 @@ https://mirrors.tuna.tsinghua.edu.cn/gitlab-ee/ubuntu/pool/xenial/main/g/gitlab-
 
 升级前需要备份
 
-# 备份
+## 备份
 
 https://docs.gitlab.com/ce/raketasks/backup_restore.html#restore-for-omnibus-installations
 
@@ -22,7 +29,7 @@ sudo gitlab-backup create STRATEGY=copy
 
 备份gitlab配置信息 /etc/gitlab/gitlab.rb
 
-# 汉化
+## 汉化
 
 代码地址：https://gitlab.com/xhang/gitlab
 
@@ -42,13 +49,13 @@ sudo gitlab-ctl restart
 
 没问题的话汉化成功
 
-# 恢复
+## 恢复
 
 https://docs.gitlab.com/ce/raketasks/backup_restore.html#restore-for-omnibus-gitlab-installations
 
 写得很详细了
 
-# 万一玩崩了
+## 万一玩崩了
 
 1. 数据库没坏
 
@@ -58,7 +65,7 @@ sudo apt --reinstall ./xxxxx.deb 重装解决问题
 
 重装并恢复
 
-# Runner升级
+## Runner升级
 
 https://docs.gitlab.com/runner/install/linux-manually.html
 
@@ -72,7 +79,7 @@ sudo gitlab-runner register
 
 sudo gitlab-ctl restart
 
-# 502问题
+## 502问题
 
 Note that on a single-core server it may take up to a minute to restart Unicorn and Sidekiq. Your GitLab instance will give a 502 error until Unicorn is up again.
 
