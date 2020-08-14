@@ -29,6 +29,8 @@ sudo gitlab-backup create STRATEGY=copy
 
 备份gitlab配置信息 /etc/gitlab/gitlab.rb
 
+<!-- more -->
+
 ## 汉化
 
 代码地址：https://gitlab.com/xhang/gitlab
