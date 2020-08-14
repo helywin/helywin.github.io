@@ -476,7 +476,7 @@ yandex_site_verification:
 
 # Baidu Webmaster tools verification.
 # See: https://ziyuan.baidu.com/site
-baidu_site_verification:
+baidu_site_verification: wMbD8K1V5S
 
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO.
 baidu_push: true
@@ -677,7 +677,8 @@ google_analytics:
   only_pageview: false
 
 # Baidu Analytics
-baidu_analytics: 82483a4063048e6739e27af68e9a44d3 # <app_id>
+baidu_analytics: 82483a4063048e6739e27af68e9a44d3
+ # <app_id>
 
 # Growingio Analytics
 growingio_analytics: # <project_id>

@@ -39,6 +39,8 @@ endif()
 
 msvc版本可通过MSVC10, MSVC11, MSVC12, MSVC14, MSVC60, MSVC70, MSVC71, MSVC80, MSVC90, MSVC_TOOLSET_VERSION, MSVC_VERSION等判断
 
+<!-- more -->
+
 ## 2 编译器设置
 
 - C/C++标准
