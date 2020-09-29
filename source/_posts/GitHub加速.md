@@ -24,3 +24,14 @@ tags:
 2. 替换域名为`github-download.oss-cn-hongkong.aliyuncs.com`
 ```https://github-download.oss-cn-hongkong.aliyuncs.com/googlefonts/noto-cjk/archive/NotoSansV2.001.zip```
 3. 复制到下载工具下载即可
+
+### gist和代码原文件
+
+把以下加入hosts文件
+
+```
+192.30.253.118	gist.github.com
+151.101.76.133	gist.githubusercontent.com
+199.232.68.133	raw.githubusercontent.com
+```
+
