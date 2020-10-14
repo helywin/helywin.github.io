@@ -107,3 +107,9 @@ leancloud_counter_security:
   server_url: #https://lx9qsw2l.lc-cn-n1-shared.com
   username: helywin_blog # Will be asked while deploying if is left blank
   password: 123456 # Recommmended to be left blank. Will be asked while deploying if is left blank
+
+symbols_count_time:
+  symbols: true
+  time: true
+
+excerpt_description: true
