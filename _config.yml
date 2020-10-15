@@ -77,7 +77,7 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-- type: leancloud_counter_security_sync
+#- type: leancloud_counter_security_sync
 - type: cjh_google_url_submitter
 - type: cjh_bing_url_submitter
 - type: cjh_baidu_url_submitter
@@ -102,13 +102,13 @@ lazyload:
   onlypost: false
   loadingImg: 
 
-leancloud_counter_security:
-  enable_sync: true
-  app_id: LX9qsW2LisyXt1HPNWAG42E0-gzGzoHsz
-  app_key: S07jAlUIBLh8Dokqi57JMC5g
-  server_url: #https://lx9qsw2l.lc-cn-n1-shared.com
-  username: helywin_blog # Will be asked while deploying if is left blank
-  password: 123456 # Recommmended to be left blank. Will be asked while deploying if is left blank
+#leancloud_counter_security:
+#  enable_sync: true
+#  app_id: LX9qsW2LisyXt1HPNWAG42E0-gzGzoHsz
+#  app_key: S07jAlUIBLh8Dokqi57JMC5g
+#  server_url: cn-n1-cell1.leancloud.cn
+#  username: helywin_blog # Will be asked while deploying if is left blank
+#  password: '123456' # Recommmended to be left blank. Will be asked while deploying if is left blank
 
 symbols_count_time:
   symbols: true
