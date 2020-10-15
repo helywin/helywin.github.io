@@ -29,3 +29,5 @@ branches:
 env:
  global:
    - GH_REF: github.com/helywin/helywin.github.io.git
+   - BAIDU_TOKEN: $BAIDU_TOKEN
+   - BING_TOKEN: $BING_TOKEN
