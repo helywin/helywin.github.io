@@ -1,0 +1,48 @@
+---
+title: Notes
+date: 2020-10-23 19:50:23
+tags:
+  - Note
+---
+
+## Windows下格式化显示错误码
+
+使用`FormatMessage`函数
+```cpp
+TCHAR *s = NULL;
+FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+              NULL, WSAGetLastError(),
+              MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+              (LPTSTR) &s, 0, NULL);
+OutputDebugString(s);
+```
+中文环境下打印:
+```
+由于目标计算机积极拒绝，无法连接。
+```
+参考
+
+> https://stackoverflow.com/questions/3400922/how-do-i-retrieve-an-error-string-from-wsagetlasterror
+> https://docs.microsoft.com/zh-cn/windows/win32/api/winbase/nf-winbase-formatmessage?redirectedfrom=MSDN
+
+
+
+## 多字节API和UNICODE API
+
+采用Windows接口时, 如果使用宏定义的接口, 如`OutputDebugString`, 就要考虑到传参在多字节API和UNICODE API直间的兼容
+
+当定义了`UNICODE` 宏时就是使用的后者, 在`winnt.h:565` 行后面有说明
+
+如果要使用系统API则要尽量对应使用在两种API都有的宏类型或者函数, 不然就不用宏, 直接使用类似 `OutputDebugStringA` 这种函数
+
+|  Macro  |  Multi-bytes  |     Unicode     |
+| :-----: | :-----------: | :-------------: |
+|  TCHAR  |     char      |     wchar_t     |
+|  PTCH   |    char *     |    wchar_t *    |
+|  PCTCH  | const char *  | const wchar_t * |
+|  TBYTE  | unsigned char |     wchar_t     |
+| LPTSTR  |    char *     |    wchar_t *    |
+| LPCTSTR | const char *  | const wchar_t * |
+
+
+
