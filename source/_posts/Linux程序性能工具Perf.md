@@ -4,6 +4,7 @@ date: 2019-5-7 11:48:24
 tags:
   - Linux
   - Perf
+excerpt: 有关Perf的相关介绍
 ---
 
 ## Linux程序性能工具Perf

@@ -4,9 +4,8 @@ date: 2020-11-1 22:21:40
 tags:
   - MATLAB
   - Linux
+excerpt: 最新Manjaro系统下MATLAB不能正常安装的问题
 ---
-
-## Matlab2020a在最新Linux下安装报错
 
 使用的是最新的Manjaro系统
 

@@ -3,6 +3,8 @@ title: CMake技巧
 date: 2020-7-31 09:41:20
 tags:
   - CMake
+excerpt: 使用CMake管理项目积累下来的一些经验
+index_img: https://cmake.org/wp-content/uploads/2018/11/cmake_logo_slider.png
 ---
 
 ## 判断CMake编译环境
@@ -13,7 +15,7 @@ tags:
 
 ```cmake
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-	#do some thing
+    #do some thing
 endif()
 ```
 
@@ -25,9 +27,9 @@ endif()
 
 ```cmake
 if (UNIX)
-	#cond1
+    #cond1
 elseif(WIN32)
-	#cond2
+    #cond2
 endif()
 ```
 
@@ -68,7 +70,7 @@ set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-fno-pie")
 
 ### 特殊的编译器设置
 
-  - sanitize (msvc目前只支持32位)
+- sanitize (msvc目前只支持32位)
 
 检查内存泄露和内存其他问题
 
@@ -78,7 +80,7 @@ list(APPEND CMAKE_CXX_FLAGS_DEBUG -fsanitize=address -g)
 
 配置后运行程序时发生内存问题程序会立马中断退出, 并且打印内存问题
 
-  - /utf-8 (msvc)
+- /utf-8 (msvc)
 
 强制源码使用utf-8, 避免代码到了其他平台乱码
 
@@ -86,7 +88,7 @@ list(APPEND CMAKE_CXX_FLAGS_DEBUG -fsanitize=address -g)
 list(APPEND CMAKE_CXX_FLAGS_DEBUG /utf-8)
 ```
 
-  - -DUNICODE (msvc)
+- -DUNICODE (msvc)
 
 决定windows下面使用标准字符api还是宽字符api
 
@@ -98,11 +100,11 @@ list(APPEND CMAKE_CXX_FLAGS_DEBUG /utf-8)
 #endif // !UNICODE
 ```
 
-  - /SUBSYSTEM:WINDOWS
+- /SUBSYSTEM:WINDOWS
 
 更改软件启动入口, 默认是/SUBSYSTEM:CONSOLE, 会先启动命令行再启动其他ui, 而更改后命令行将不再启动, 所有打印信息也将会看不到, 只有通过x64dbg这种调试软件才能看到
 
-  - /OPT:REF /OPT:ICF
+- /OPT:REF /OPT:ICF
 
 添加这两个参数release模式下编译也会生成pdb文件
 
@@ -171,8 +173,6 @@ namespace PROJECT {
 }
 ```
 
-
-
 ```cmake
 set(PROJECT_APP_NAME "Project")
 set(PROJECT_APP_ORG "Company")
@@ -190,7 +190,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Global.hpp.in ${CMAKE_CURRENT_BINARY_
 
 #### 从文本文件获取版本号
 
-  ```cmake
+```cmake
 file(READ ${CMAKE_SOURCE_DIR}/VERSION VERSION_STR)
 string(REPLACE "." ";" VERSION_STR_LIST ${VERSION_STR})
 list(LENGTH VERSION_STR_LIST LEN)
@@ -202,7 +202,7 @@ list(GET VERSION_STR_LIST 1 PROJECT_VERSION_MINOR)
 list(GET VERSION_STR_LIST 2 PROJECT_VERSION_PATCH)
 list(GET VERSION_STR_LIST 3 PROJECT_VERSION_TWEAK)
 message(VERSION:${PROJECT_VERSION_MAJOR})
-  ```
+```
 
 ​利用cmake读写文件可以实现buildVersion累加
 
@@ -299,7 +299,7 @@ add_custom_target(BuildTime
         -DBUILD_TIME_HEADER:PATH="${BUILD_TIME_HEADER}"
         -P "${CMAKE_SOURCE_DIR}/cmake/UpdateBuildTime.cmake")
 if (CMAKE_BUILD_TYPE MATCHES Release)
-	add_dependencies(${PROJECT_NAME} BuildTime)
+    add_dependencies(${PROJECT_NAME} BuildTime)
 endif ()
 ```
 
@@ -368,8 +368,3 @@ function(set_library_target NAMESPACE LIB_NAME DEBUG_LIB_FILE_NAME RELEASE_LIB_F
     set(${NAMESPACE}_${LIB_NAME}_FOUND 1)
 endfunction()
 ```
-
-
-
-
-

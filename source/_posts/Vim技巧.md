@@ -3,6 +3,8 @@ title: Vim技巧
 date: 2020-9-29 11:20:07
 tags:
   - Vim
+excerpt: VIM快捷键和的记录
+index_img: https://www.vim.org/images/vim_editor.gif
 ---
 
 ## Normal模式
@@ -121,19 +123,13 @@ tags:
 
 ## Insert模式
 
-
-
 ## Visual模式
-
-
 
 ## 查找模式
 
 `/` 查找模式
 
 `*` `/text`  `#` `?text` 向前向后查找
-
-
 
 ## 命令
 

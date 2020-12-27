@@ -1,8 +1,10 @@
 ---
 title: GitLab维护
 date: 2020-07-30 09:15:47
-tags:	
-	- GitLab
+tags:    
+    - GitLab
+excerpt: GitLab维护升级的注意事项
+index_img: https://about.gitlab.com/images/press/logo/png/gitlab-logo-gray-rgb.png
 ---
 
 ## 升级
@@ -51,13 +53,15 @@ sudo gitlab-ctl restart
 
 没问题的话汉化成功
 
+<mark>目前汉化仓库已经没有再维护了</mark>
+
 ## 恢复
 
 https://docs.gitlab.com/ce/raketasks/backup_restore.html#restore-for-omnibus-gitlab-installations
 
 写得很详细了
 
-## 万一玩崩了
+## 重装
 
 1. 数据库没坏
 

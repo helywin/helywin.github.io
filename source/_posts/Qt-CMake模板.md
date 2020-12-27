@@ -4,21 +4,20 @@ date: 2018-12-16 11:41:40
 tags:
   - Qt
   - CMake
+excerpt: CMake管理Qt项目的模板和工程项目结构
 ---
 
-## CMake模板
-
-每次建立工程都要思考一番，按照如下目录结构建立好后
+按照如下目录结构建立好
 
 ```
-├─assets	#图片
-├─build		#构建目录
-├─debug		#debug构建后的二进制文件
-├─doc		#文档
-├─lib		#第三方库
-├─release	#release构建后的二进制文件
-├─res		#Qt的qrc文件和rc文件
-└─src		#源码目录
+├─assets    #图片
+├─build        #构建目录
+├─debug        #debug构建后的二进制文件
+├─doc        #文档
+├─lib        #第三方库
+├─release    #release构建后的二进制文件
+├─res        #Qt的qrc文件和rc文件
+└─src        #源码目录
 ```
 
 工程目录下的`CMakeLists.txt`文件如下：
@@ -79,8 +78,6 @@ target_link_libraries(${PROJECT_NAME}
         Qt5OpenGL)
 ```
 
-
-
 具体作用不解释，可以参考CMake手册和Qt手册关于CMake的部分
 
 2019/4/21 补充：
@@ -88,15 +85,15 @@ target_link_libraries(${PROJECT_NAME}
 1. 可以通过CMAKE_OS_NAME来判断用来编译的是什么环境
 
 2. 从Qt官网下载的安装包CMake会找不到库的路径，可以添加以下一句解决
-
+   
    ```cmake
    set(CMAKE_PREFIX_PATH qt-path/gcc_64)
    ```
-
+   
    其中qt-path为qt库的路径
 
 3. 链接时把库名改为如下方式可以减少include目录的复杂程度
-
+   
    ```cmake
    target_link_libraries(${PROJECT_NAME}
            Qt5::Core
@@ -229,7 +226,7 @@ string(TIMESTAMP DATE "%m %b %Y %H:%M:%S")
 include(FindPkgConfig)
 pkg_check_modules(BREAKPAD_CLIENT REQUIRED breakpad-client)
 if (${BREAKPAD_CLIENT_FOUND})
-	MESSAGE(STATUS "找到breakpad-client库: ${BREAKPAD_CLIENT_INCLUDE_DIRS}")
+    MESSAGE(STATUS "找到breakpad-client库: ${BREAKPAD_CLIENT_INCLUDE_DIRS}")
 endif()
 include_directories(${BREAKPAD_CLIENT_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${BREAKPAD_CLIENT_LIBRARIES})
@@ -284,6 +281,7 @@ elseif (WIN32)
     endif ()
 endif ()
 ```
+
 其中`CMAKE_CXX_FLAGS_RELEASE`的`-Zi`和`CMAKE_EXE_LINKER_FLAGS_RELEASE`的`/DEBUG /OPT:REF /OPT:ICF`是生成pdb添加的
 
 参考链接：

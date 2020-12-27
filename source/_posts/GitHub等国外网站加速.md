@@ -4,6 +4,7 @@ date: 2019-4-21 11:45:39
 tags:
   - GitHub
   - Web
+excerpt: 关于Github加速的问题
 ---
 
 ## 引言
@@ -41,9 +42,9 @@ github.global.ssl.fastly.net
 ### 下载加速
 
 1. 复制下载的url，例如
-```https://github.com/googlefonts/noto-cjk/archive/NotoSansV2.001.zip```
+   ```https://github.com/googlefonts/noto-cjk/archive/NotoSansV2.001.zip```
 2. 替换域名为`github-download.oss-cn-hongkong.aliyuncs.com`
-```https://github-download.oss-cn-hongkong.aliyuncs.com/googlefonts/noto-cjk/archive/NotoSansV2.001.zip```
+   ```https://github-download.oss-cn-hongkong.aliyuncs.com/googlefonts/noto-cjk/archive/NotoSansV2.001.zip```
 3. 复制到下载工具下载即可
 
 ### gist和代码原文件
@@ -51,9 +52,9 @@ github.global.ssl.fastly.net
 把以下加入hosts文件（2020-11-21）
 
 ```
-140.82.112.4	gist.github.com
-199.232.96.133	gist.githubusercontent.com
-199.232.96.133	raw.githubusercontent.com
+140.82.112.4    gist.github.com
+199.232.96.133    gist.githubusercontent.com
+199.232.96.133    raw.githubusercontent.com
 ```
 
 ## StackOverflow等

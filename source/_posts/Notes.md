@@ -1,13 +1,15 @@
 ---
-title: Notes
+title: 开发笔记
 date: 2020-10-23 19:50:23
 tags:
   - Note
+excerpt: 开发中的笔记
 ---
 
 ## Windows下格式化显示错误码
 
 使用`FormatMessage`函数
+
 ```cpp
 TCHAR *s = NULL;
 FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
@@ -16,16 +18,17 @@ FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORM
               (LPTSTR) &s, 0, NULL);
 OutputDebugString(s);
 ```
+
 中文环境下打印:
+
 ```
 由于目标计算机积极拒绝，无法连接。
 ```
+
 参考
 
 > https://stackoverflow.com/questions/3400922/how-do-i-retrieve-an-error-string-from-wsagetlasterror
 > https://docs.microsoft.com/zh-cn/windows/win32/api/winbase/nf-winbase-formatmessage?redirectedfrom=MSDN
-
-
 
 ## 多字节API和UNICODE API
 
@@ -35,14 +38,11 @@ OutputDebugString(s);
 
 如果要使用系统API则要尽量对应使用在两种API都有的宏类型或者函数, 不然就不用宏, 直接使用类似 `OutputDebugStringA` 这种函数
 
-|  Macro  |  Multi-bytes  |     Unicode     |
-| :-----: | :-----------: | :-------------: |
-|  TCHAR  |     char      |     wchar_t     |
-|  PTCH   |    char *     |    wchar_t *    |
-|  PCTCH  | const char *  | const wchar_t * |
-|  TBYTE  | unsigned char |     wchar_t     |
-| LPTSTR  |    char *     |    wchar_t *    |
+| Macro   | Multi-bytes   | Unicode         |
+|:-------:|:-------------:|:---------------:|
+| TCHAR   | char          | wchar_t         |
+| PTCH    | char *        | wchar_t *       |
+| PCTCH   | const char *  | const wchar_t * |
+| TBYTE   | unsigned char | wchar_t         |
+| LPTSTR  | char *        | wchar_t *       |
 | LPCTSTR | const char *  | const wchar_t * |
-
-
-
