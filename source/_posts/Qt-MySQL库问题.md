@@ -5,7 +5,7 @@ tags:
   - Qt
   - MySQL
 excerpt: Qt的MySQL插件和开发环境MySQL库不兼容重新编译
-index_img: https://qt-web-uploads.s3.amazonaws.com/wp-content/uploads/2016/05/TheQtCompany_logo_1200x630.png
+index_img: https://s3.ax1x.com/2020/12/27/r5NTKg.png
 ---
 
 ubuntu 16.04环境下

@@ -5,6 +5,7 @@ tags:
   - GitHub
   - Web
 excerpt: 关于Github加速的问题
+index_img: https://s3.ax1x.com/2020/12/27/r5ar0H.png
 ---
 
 ## 引言

@@ -5,7 +5,7 @@ tags:
   - Qt
   - msys2
 excerpt: msys2搭建Qt开发环境的步骤
-index_img: https://qt-web-uploads.s3.amazonaws.com/wp-content/uploads/2016/05/TheQtCompany_logo_1200x630.png
+index_img: https://s3.ax1x.com/2020/12/27/r5NTKg.png
 ---
 
 ## 步骤

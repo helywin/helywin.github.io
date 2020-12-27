@@ -4,7 +4,7 @@ date: 2020-9-29 11:20:07
 tags:
   - Vim
 excerpt: VIM快捷键和的记录
-index_img: https://www.vim.org/images/vim_editor.gif
+index_img: https://s3.ax1x.com/2020/12/27/r5NO5q.png
 ---
 
 ## Normal模式

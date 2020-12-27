@@ -4,7 +4,7 @@ date: 2020-07-30 09:15:47
 tags:    
     - GitLab
 excerpt: GitLab维护升级的注意事项
-index_img: https://about.gitlab.com/images/press/logo/png/gitlab-logo-gray-rgb.png
+index_img: https://s3.ax1x.com/2020/12/27/r5NvGV.png
 ---
 
 ## 升级

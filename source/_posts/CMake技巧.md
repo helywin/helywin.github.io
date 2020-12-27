@@ -4,7 +4,7 @@ date: 2020-7-31 09:41:20
 tags:
   - CMake
 excerpt: 使用CMake管理项目积累下来的一些经验
-index_img: https://cmake.org/wp-content/uploads/2018/11/cmake_logo_slider.png
+index_img: https://s3.ax1x.com/2020/12/27/r5NRUI.png
 ---
 
 ## 判断CMake编译环境

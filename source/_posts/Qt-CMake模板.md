@@ -5,6 +5,7 @@ tags:
   - Qt
   - CMake
 excerpt: CMake管理Qt项目的模板和工程项目结构
+index_img: https://s3.ax1x.com/2020/12/27/r5NTKg.png
 ---
 
 按照如下目录结构建立好
