@@ -191,13 +191,13 @@ class Squre~Shape~{
 
 | 类型   | 描述              |
 | ------ | ----------------- |
-| `<|--` | (Inheritance)继承 |
-| `*--`  | (Composition)组合 |
+| <code>&lt;&brvbar;--</code> | (Inheritance)继承 |
+| `*--` | (Composition)组合 |
 | `o--`  | (Aggregation)聚合 |
 | `-->`  | (Association)关联 |
 | `--`   | (Link)实线连接    |
 | `..>`  | (Dependency)依赖  |
-| `..|>` | (Realization)实现 |
+| <code>..&brvbar;&gt;</code> | (Realization)实现 |
 | `..`   | (Link)虚线连接    |
 
 ```
