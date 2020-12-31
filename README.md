@@ -6,5 +6,6 @@
 
 ```
  npm-check -u
+ yarn upgrade-interactive --latest
 ```
 
