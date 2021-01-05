@@ -146,5 +146,130 @@ void edit_document(std::string const& filename)
 
 ### Passing arguments to a thread function
 
+传入线程的参数是引用和指针时要考虑变量的生存周期, 但有时候线程需要更新数据就要传输引用进去
 
+就算函数声明的是引用, 在构造线程传参时依旧会变成拷贝, 例子:
+
+<details>
+  <summary>code</summary>
+
+```cpp
+#include <thread>
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+struct people
+{
+    int age;
+    string name;
+};
+
+void happy_birthday(people &p)
+{
+    cout  << p.name << " is " << p.age++
+    << " years old, next year will be " << p.age << endl;
+}
+
+int main()
+{
+    people p{18, "Bob"};
+    std::thread t(happy_birthday, p);
+    t.join();
+    cout << "age :" << p.age << endl;
+}
+
+//结果
+Bob is 18 years old, next year will be 19
+age :18
+```
+
+</details>
+
+### Transferring ownership of a thread
+
+**传递引用**
+
+<mark>为了传引用必须使用`std::ref(p)`才能成功</mark>
+
+**绑定成员函数**
+
+```cpp
+struct cat
+{ void sleep() {}; }
+cat c;
+std::thread t(&cat::sleep, &c);
+```
+
+第一个参数是类的指针
+
+**传递右值(变量转移)**
+
+```cpp
+void process_big_object(std::unique_ptr<big_object>);
+std::unique_ptr<big_object> p(new big_object);
+p->prepare_data(42);
+std::thread t(process_big_object,std::move(p));
+```
+
+thread是moveable的, unique_ptr, 和ifstream也是, 可以用std::move, 可以用thread::move
+
+<details>
+  <summary>code</summary>
+
+```cpp
+#include <thread>
+#include <iostream>
+#include <chrono>
+
+using namespace std;
+using namespace std::chrono_literals;
+
+void some_function1()
+{
+    for (int i = 0; i < 100; ++i) {
+        this_thread::sleep_for(1s);
+        cout << "func 1, this id: " << this_thread::get_id() << endl;
+    }
+}
+
+void some_function2()
+{
+    for (int i = 0; i < 100; ++i) {
+        this_thread::sleep_for(1s);
+        cout << "func 2, this id: " << this_thread::get_id() << endl;
+    }
+}
+
+int main()
+{
+    thread t1(some_function1);
+    this_thread::sleep_for(3s);
+    thread t2 = std::move(t1);
+    this_thread::sleep_for(3s);
+    t1 = thread(some_function2);
+    this_thread::sleep_for(3s);
+    thread t3 = std::move(t2);
+    this_thread::sleep_for(3s);
+    t1 = std::move(t3);     // std::terminate()会发生
+}
+```
+</details>
+
+在已经运行函数的线程中用另外一个线程赋值会崩溃, move线程不会改变线程id
+
+### Choosing the number of threads at runtime
+
+使用`std::thread::hardware_concurrency()`可以得到cpu并发能力
+
+`std::accumulate`累加算法, `std::distance`迭代器直接的距离
+
+### Identifying threads
+
+使用`std::thread::id`来标识线程, 对于当前线程使用`std::this_thread::get_id()`
+
+## Sharing data between threads
+
+涉及线程间共享数据, 用锁保护数据, 其他保护共享数据的方法
 
