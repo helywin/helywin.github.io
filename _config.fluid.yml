@@ -297,6 +297,7 @@ navbar:
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
+    - { key: "plan", link: "/plan/", icon: "iconfont icon-plan"}
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
@@ -614,7 +615,7 @@ post:
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo
-    type: gitalk
+    type: valine
 
 
 #---------------------------
@@ -654,9 +655,9 @@ disqus:
 # Based on GitHub Issues
 # See: https://github.com/gitalk/gitalk#options
 gitalk:
-  clientID: d00421b4e272891b1d9b
-  clientSecret: 27eac71823f25213851a3bd6bd501792da6581c1
-  repo: helywin.github.io
+  clientID: 
+  clientSecret: 
+  repo: 
   owner: helywin
   admin: ['helywin']
   language: zh-CN
@@ -671,8 +672,8 @@ gitalk:
 # Based on LeanCloud
 # See: https://valine.js.org/configuration.html
 valine:
-  appid:
-  appkey:
+  appid: L1NVVQMKRMoYHH4mknhB0VAg-gzGzoHsz
+  appkey: GahRa5GMtjARXXjxHRMwlNKN
   placeholder: 说点什么
   path: window.location.pathname
   avatar: retro
@@ -821,6 +822,11 @@ page:
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
+
+plan:
+  banner_img: 
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
 
 #---------------------------
 # 404页
