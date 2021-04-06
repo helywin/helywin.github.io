@@ -58,9 +58,15 @@ winetricks启动可能较慢，需要耐心等待
 
   https://extensions.gnome.org/extension/1031/topicons/
 
-### 双系统时间
+## 双系统时间
 
-### 系统搬移
+````
+timedatectl set-local-rtc 1 --adjust-system-clock
+````
+
+然后重启，要对时需要安装ntp
+
+## 系统搬移
 
 因为系统之前装在固态硬盘盒里面，由于不方便需要把系统拷贝到笔记本硬盘里面
 
@@ -97,3 +103,14 @@ https://gist.github.com/helywin/ff10c1e9e8c0180992941a978929b604
 chroot方式修复可以参考：
 
 https://zhuanlan.zhihu.com/p/106129271
+
+## 装完ROS后更新CMake
+
+首先否定掉任何和卸载老cmake 的方法，因为这样会导致和cmake相关的ros包全部会被删除
+
+实际上升级只需要把cmake源码下载下来，然后安装通常编译然后sudo make install，因为在PATH环境变量下面，`/usr/local/bin`在`/usr/bin`前面，编译安装的cmake在`/usr/local/bin`下面，命令行执行cmake会找到编译的
+
+```
+/opt/ros/melodic/bin:/home/jiang/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+```
+
