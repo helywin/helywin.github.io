@@ -35,6 +35,10 @@ plan:
   title: 计划
   subtitle: 计划
 
+music:
+  title: 音乐
+  subtitle: 音乐
+
 about:
   title: 关于
   subtitle: 关于
