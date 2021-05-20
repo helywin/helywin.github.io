@@ -1,0 +1,577 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="人生は自分を探す旅です">
+  <meta name="author" content="helywin">
+  <meta name="keywords" content="">
+  <title>Qt CMake模板 - 封楚寒的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"helywin.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":"82483a4063048e6739e27af68e9a44d3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>封楚寒的小窝</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/plan/">
+                <i class="iconfont icon-plan"></i>
+                计划
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/music/">
+                <i class="iconfont icon-music"></i>
+                音乐
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:" rel="external nofollow noreferrer">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s3.ax1x.com/2020/12/27/r5QtHK.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Qt CMake模板">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      helywin
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-12-16 11:41" pubdate>
+        2018年12月16日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Qt CMake模板</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年5月20日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>(2021/4/23)更新模板项目供参考[<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/helywin/cmake-modular-template">helywin/cmake-modular-template</a>]</strong></p>
+<p>按照如下目录结构建立好</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs gauss">├─assets    <span class="hljs-meta">#图片</span><br>├─build        <span class="hljs-meta">#构建目录</span><br>├─<span class="hljs-keyword">debug</span>        <span class="hljs-meta">#debug构建后的二进制文件</span><br>├─doc        <span class="hljs-meta">#文档</span><br>├─<span class="hljs-keyword">lib</span>        <span class="hljs-meta">#第三方库</span><br>├─release    <span class="hljs-meta">#release构建后的二进制文件</span><br>├─res        <span class="hljs-meta">#Qt的qrc文件和rc文件</span><br>└─src        <span class="hljs-meta">#源码目录</span><br></code></pre></td></tr></table></figure>
+<p>工程目录下的<code>CMakeLists.txt</code>文件如下：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.12</span>)<br><span class="hljs-keyword">project</span>(xxxx)<br><br><span class="hljs-keyword">add_subdirectory</span>(src)<br></code></pre></td></tr></table></figure>
+<p><code>src</code>目录下<code>CMakeLists.txt</code>文件如下：</p>
+<!-- more -->
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(CMAKE_INCLUDE_CURRENT_DIR <span class="hljs-keyword">ON</span>)<br><span class="hljs-keyword">set</span>(CMAKE_AUTOMOC <span class="hljs-keyword">ON</span>)<br><span class="hljs-keyword">set</span>(CMAKE_AUTOUIC <span class="hljs-keyword">ON</span>)<br><span class="hljs-keyword">set</span>(CMAKE_AUTORCC <span class="hljs-keyword">ON</span>)<br><br><span class="hljs-keyword">find_package</span>(Qt5Core CONFIG REQUIRED)<br><span class="hljs-keyword">find_package</span>(Qt5Widgets CONFIG REQUIRED)<br><span class="hljs-keyword">find_package</span>(Qt5Gui CONFIG REQUIRED)<br><span class="hljs-keyword">find_package</span>(Qt5OpenGL CONFIG REQUIRED)<br><span class="hljs-comment">#find_package(Qt5PrintSupport CONFIG REQUIRED)</span><br><span class="hljs-comment">#find_package(Qt5TextToSpeech CONFIG REQUIRED)</span><br><span class="hljs-keyword">set</span>(CMAKE_CXX_COMPILER g++)<br><span class="hljs-keyword">set</span>(CMAKE_C_COMPILER gcc)<br><span class="hljs-keyword">set</span>(DEFINES <span class="hljs-string">&quot;-DUNICODE -D_UNICODE -DWIN32 -DQT_DEPRECATED_WARNINGS&quot;</span>)<br><span class="hljs-keyword">set</span>(CMAKE_C_FLAGS <span class="hljs-string">&quot;-fno-keep-inline-dllexport -fopenmp -march=i686 -mtune=core2 -Wa,-mbig-obj -O2 -Wall -W -Wextra $&#123;DEFINES&#125;&quot;</span>)<br><span class="hljs-keyword">set</span>(CMAKE_CXX_FLAGS <span class="hljs-string">&quot;-fno-keep-inline-dllexport -fopenmp -O2 -g -Wall -W -Wextra -fexceptions -mthreads $&#123;DEFINES&#125;&quot;</span>)<br><br><span class="hljs-keyword">if</span> (CMAKE_BUILD_TYPE <span class="hljs-keyword">MATCHES</span> Release)<br>    <span class="hljs-keyword">message</span>(<span class="hljs-string">&quot;release compile!!&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_EXE_LINKER_FLAGS_RELEASE <span class="hljs-string">&quot;-Wl,-s -Wl,-subsystem,windows -mthreads&quot;</span>)<br>    <span class="hljs-keyword">add_definitions</span>(-DQT_NO_DEBUG)<br>    <span class="hljs-keyword">set</span>(EXECUTABLE_OUTPUT_PATH <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/release)<br><span class="hljs-keyword">endif</span> (CMAKE_BUILD_TYPE <span class="hljs-keyword">MATCHES</span> Release)<br><br><span class="hljs-keyword">if</span> (CMAKE_BUILD_TYPE <span class="hljs-keyword">MATCHES</span> Debug)<br>    <span class="hljs-keyword">message</span>(<span class="hljs-string">&quot;debug compile!!&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_EXE_LINKER_FLAGS_DEBUG <span class="hljs-string">&quot;-mthreads&quot;</span>)<br>    <span class="hljs-keyword">set</span>(EXECUTABLE_OUTPUT_PATH <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/debug)<br><span class="hljs-keyword">endif</span> (CMAKE_BUILD_TYPE <span class="hljs-keyword">MATCHES</span> Debug)<br><br><span class="hljs-keyword">aux_source_directory</span>(<span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/src SRC)<br><span class="hljs-keyword">include_directories</span>(<span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/src)<br><br><span class="hljs-comment">#set(UI $&#123;PROJECT_SOURCE_DIR&#125;/res/ui.qrc)</span><br><br><span class="hljs-keyword">add_executable</span>(<span class="hljs-variable">$&#123;PROJECT_NAME&#125;</span> <span class="hljs-variable">$&#123;SRC&#125;</span>)<br><br><span class="hljs-keyword">target_link_libraries</span>(<span class="hljs-variable">$&#123;PROJECT_NAME&#125;</span><br>        Qt5Core<br>        Qt5Widgets<br>        Qt5Gui<br>        Qt5OpenGL)<br></code></pre></td></tr></table></figure>
+<p>具体作用不解释，可以参考CMake手册和Qt手册关于CMake的部分</p>
+<p>2019/4/21 补充：</p>
+<ol>
+<li><p>可以通过CMAKE_OS_NAME来判断用来编译的是什么环境</p>
+</li>
+<li><p>从Qt官网下载的安装包CMake会找不到库的路径，可以添加以下一句解决</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(CMAKE_PREFIX_PATH qt-path/gcc_64)<br></code></pre></td></tr></table></figure>
+<p>其中qt-path为qt库的路径</p>
+</li>
+<li><p>链接时把库名改为如下方式可以减少include目录的复杂程度</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">target_link_libraries</span>(<span class="hljs-variable">$&#123;PROJECT_NAME&#125;</span><br>        Qt5::Core<br>        Qt5::Widgets<br>        Qt5::Gui<br>        Qt5::OpenGL)<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="2019-4-28-补充"><a href="#2019-4-28-补充" class="headerlink" title="2019/4/28 补充"></a>2019/4/28 补充</h3><ol>
+<li>CMake可以 执行shell命令并且获取输出和返回值</li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">find_program</span>(GIT git)<br><br><span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;$&#123;GIT&#125;&quot;</span> <span class="hljs-keyword">STREQUAL</span> <span class="hljs-string">&quot;GIT-NOTFOUND&quot;</span>)<br>    <span class="hljs-keyword">message</span>(WARNING <span class="hljs-string">&quot;找不到git程序,无法更新git提交记录&quot;</span>)<br>    <span class="hljs-keyword">set</span>(VERSION_REVISION <span class="hljs-string">&quot;找不到提交号&quot;</span>)<br>    <span class="hljs-keyword">set</span>(VERSION_BRANCH <span class="hljs-string">&quot;找不到提交分支&quot;</span>)<br><span class="hljs-keyword">else</span> ()<br>    <span class="hljs-keyword">unset</span>(GIT_VERSION_NUM CACHE)<br>    <span class="hljs-keyword">unset</span>(GIT_BRANCH CACHE)<br>    <span class="hljs-keyword">message</span>(<span class="hljs-string">&quot;找到git,读取分支信息&quot;</span>)<br>    <span class="hljs-keyword">execute_process</span>(<br>            <span class="hljs-keyword">COMMAND</span> git log -<span class="hljs-number">1</span> --format=%H<br>            WORKING_DIRECTORY <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span><br>            OUTPUT_VARIABLE GIT_COMMIT<br>            OUTPUT_STRIP_TRAILING_WHITESPACE<br>            RESULT_VARIABLE GIT_COMMIT_RESULT<br>    )<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">NOT</span> GIT_COMMIT_RESULT <span class="hljs-keyword">EQUAL</span> <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">message</span>(FATAL_ERROR <span class="hljs-string">&quot;找不到git提交的id号&quot;</span>)<br>    <span class="hljs-keyword">else</span> ()<br>        <span class="hljs-keyword">message</span>(<span class="hljs-string">&quot;提交号 $&#123;GIT_COMMIT&#125;&quot;</span>)<br>    <span class="hljs-keyword">endif</span> ()<br><br>    <span class="hljs-keyword">execute_process</span>(<br>            <span class="hljs-keyword">COMMAND</span> git symbolic-ref --short HEAD<br>            WORKING_DIRECTORY <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span><br>            OUTPUT_VARIABLE GIT_BRANCH<br>            OUTPUT_STRIP_TRAILING_WHITESPACE<br>            RESULT_VARIABLE GIT_BRANCH_RESULT<br>    )<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">NOT</span> GIT_BRANCH_RESULT <span class="hljs-keyword">EQUAL</span> <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">message</span>(FATAL_ERROR <span class="hljs-string">&quot;找不到git当前分支名称&quot;</span>)<br>    <span class="hljs-keyword">else</span> ()<br>        <span class="hljs-keyword">message</span>(<span class="hljs-string">&quot;分支名称 $&#123;GIT_BRANCH&#125;&quot;</span>)<br>    <span class="hljs-keyword">endif</span> ()<br><br>    <span class="hljs-keyword">execute_process</span>(<br>            <span class="hljs-comment">#            COMMAND env LC_ALL=C date &quot;+%Y-%m-%d %H:%M:%S %Z&quot;</span><br>            <span class="hljs-keyword">COMMAND</span> env LC_ALL=C date <span class="hljs-string">&quot;+%m %b %Y %H:%M:%S %Z&quot;</span><br>            OUTPUT_VARIABLE DATE<br>            OUTPUT_STRIP_TRAILING_WHITESPACE<br>            RESULT_VARIABLE DATE_RESULT<br>    )<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">NOT</span> DATE_RESULT <span class="hljs-keyword">EQUAL</span> <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">message</span>(FATAL_ERROR <span class="hljs-string">&quot;无法读取当前时间&quot;</span>)<br>    <span class="hljs-keyword">else</span> ()<br>        <span class="hljs-keyword">message</span>(<span class="hljs-string">&quot;编译时间 $&#123;DATE&#125;&quot;</span>)<br>    <span class="hljs-keyword">endif</span> ()<br><br>    <span class="hljs-keyword">set</span>(VERSION_COMMIT <span class="hljs-variable">$&#123;GIT_COMMIT&#125;</span>)<br>    <span class="hljs-keyword">set</span>(VERSION_BRANCH <span class="hljs-variable">$&#123;GIT_BRANCH&#125;</span>)<br>    <span class="hljs-keyword">set</span>(VERSION_BUILD_DATE <span class="hljs-variable">$&#123;DATE&#125;</span>)<br><span class="hljs-keyword">endif</span> ()<br></code></pre></td></tr></table></figure>
+<ol>
+<li>CMake可以替换模板文件生成源码</li>
+</ol>
+<p>模板文件如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> VERSION_HPP</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> VERSION_HPP</span><br><br><span class="hljs-comment">// 编译版本信息</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> VERSION_MAJOR @VERSION_MAJOR@</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> VERSION_MINOR @VERSION_MINOR@</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> VERSION_MICRO @VERSION_MICRO@</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> VERSION_COMMIT <span class="hljs-meta-string">&quot;@VERSION_COMMIT@&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> VERSION_BRANCH <span class="hljs-meta-string">&quot;@VERSION_BRANCH@&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> VERSION_BUILD_DATE <span class="hljs-meta-string">&quot;@VERSION_BUILD_DATE@&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> VERSION_QT <span class="hljs-meta-string">&quot;@VERSION_QT@&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> VERSION_QT_PLATFORM <span class="hljs-meta-string">&quot;@VERSION_QT_PLATFORM@&quot;</span></span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">//VERSION_HPP</span></span><br></code></pre></td></tr></table></figure>
+<p>在CMake里面相应设置值</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(VERSION_QT <span class="hljs-variable">$&#123;QT_VERSION&#125;</span>)<br><span class="hljs-keyword">set</span>(VERSION_QT_PLATFORM <span class="hljs-variable">$&#123;QT_PLATFORM&#125;</span>)<br></code></pre></td></tr></table></figure>
+<p>左边是文件里面的 @@中间的名称，右边是CMake变量，然后编写替换的文件名称就可以 了</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">configure_file</span>(src/Version.hpp.in src/Version.hpp @ONLY)<br></code></pre></td></tr></table></figure>
+<p>下次执行CMake会自动在编译目录下生成.hpp文件，所以还要加上include目录才能包含头文件</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">include_directories</span>(<span class="hljs-variable">$&#123;CMAKE_CURRENT_BINARY_DIR&#125;</span>/src)<br></code></pre></td></tr></table></figure>
+<h3 id="2019-9-9-补充"><a href="#2019-9-9-补充" class="headerlink" title="2019/9/9 补充"></a>2019/9/9 补充</h3><ol>
+<li>CMake获取时间跨平台方法</li>
+</ol>
+<p>原来的方式获取时间Windows上就会有问题，如下命令代替即可</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">string</span>(TIMESTAMP DATE <span class="hljs-string">&quot;%m %b %Y %H:%M:%S&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>时间信息就存储在<code>DATE</code>里面了</p>
+<p>参考连接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cmake.org/cmake/help/v3.5/command/string.html#timestamp">https://cmake.org/cmake/help/v3.5/command/string.html#timestamp</a></p>
+<ol>
+<li>CMake调用pkg-config</li>
+</ol>
+<p>由于有些库不能通过CMake的<code>find_package</code>查找，但是可以通过pkg-config定位，比如breakpad</p>
+<p>包的名称可以通过<code>pkg-config --list-all</code>查找</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">include</span>(FindPkgConfig)<br>pkg_check_modules(BREAKPAD_CLIENT REQUIRED breakpad-client)<br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$&#123;BREAKPAD_CLIENT_FOUND&#125;</span>)<br>    <span class="hljs-keyword">MESSAGE</span>(STATUS <span class="hljs-string">&quot;找到breakpad-client库: $&#123;BREAKPAD_CLIENT_INCLUDE_DIRS&#125;&quot;</span>)<br><span class="hljs-keyword">endif</span>()<br><span class="hljs-keyword">include_directories</span>(<span class="hljs-variable">$&#123;BREAKPAD_CLIENT_INCLUDE_DIRS&#125;</span>)<br><span class="hljs-keyword">target_link_libraries</span>(<span class="hljs-variable">$&#123;PROJECT_NAME&#125;</span> <span class="hljs-variable">$&#123;BREAKPAD_CLIENT_LIBRARIES&#125;</span>)<br></code></pre></td></tr></table></figure>
+<h3 id="2020-2-19-补充"><a href="#2020-2-19-补充" class="headerlink" title="2020/2/19 补充"></a>2020/2/19 补充</h3><ol>
+<li>增加msvc编译参数，增加release模式生成pdb文件</li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">if</span> (CMAKE_BUILD_TYPE <span class="hljs-keyword">MATCHES</span> Debug)<br>    <span class="hljs-keyword">message</span>(<span class="hljs-string">&quot;Debug编译&quot;</span>)<br>    <span class="hljs-keyword">set</span>(PROJECT_BINARY_DIR <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/debug)<br>    <span class="hljs-keyword">add_definitions</span>(-DDEBUG) <span class="hljs-comment"># 加此宏是为了激活代码里面有的#ifdef DEBUG宏</span><br><span class="hljs-keyword">else</span> () <span class="hljs-comment">#CMAKE_BUILD_TYPE MATCHES Release</span><br>    <span class="hljs-keyword">message</span>(<span class="hljs-string">&quot;Release编译&quot;</span>)<br>    <span class="hljs-keyword">set</span>(PROJECT_BINARY_DIR <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/release)<br>    <span class="hljs-comment"># 屏蔽Qt警告和调试</span><br>    <span class="hljs-keyword">add_definitions</span>(-DQT_NO_DEBUG)<br>    <span class="hljs-keyword">add_definitions</span>(-DQT_NO_DEBUG_OUTPUT)<br>    <span class="hljs-keyword">add_definitions</span>(-DQT_DEPRECATED_WARNINGS)<br>    <span class="hljs-keyword">set</span>(SUBSYSTEM_TYPE <span class="hljs-string">&quot;WIN32&quot;</span>)<br><span class="hljs-keyword">endif</span> ()<br><br><span class="hljs-keyword">set</span>(EXECUTABLE_OUTPUT_PATH <span class="hljs-variable">$&#123;PROJECT_BINARY_DIR&#125;</span>)<br><br><span class="hljs-comment"># 设置编译参数</span><br><span class="hljs-keyword">if</span> (UNIX)<br>    <span class="hljs-keyword">set</span>(DEFINES <span class="hljs-string">&quot;-Wunused-parameter&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_CXX_FLAGS_DEBUG <span class="hljs-string">&quot;-pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $&#123;DEFINES&#125;&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_C_FLAGS_DEBUG <span class="hljs-string">&quot;-pipe -O2 -Wall -W -D_REENTRANT -fPIC $&#123;DEFINES&#125;&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_EXE_LINKER_FLAGS_DEBUG <span class="hljs-string">&quot;-fno-pie&quot;</span>)<br><br>    <span class="hljs-keyword">set</span>(CMAKE_CXX_FLAGS_RELEASE <span class="hljs-string">&quot;-pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $&#123;DEFINES&#125;&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_C_FLAGS_RELEASE <span class="hljs-string">&quot;-pipe -O2 -Wall -W -D_REENTRANT -fPIC $&#123;DEFINES&#125;&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_EXE_LINKER_FLAGS_RELEASE <span class="hljs-string">&quot;-fno-pie&quot;</span>)<br><span class="hljs-keyword">elseif</span> (WIN32)<br>    <span class="hljs-keyword">if</span> (MSVC)<br>        <span class="hljs-keyword">set</span>(DEFINES_DEBUG <span class="hljs-string">&quot;-D_WINDOWS -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 /wd4100&quot;</span>)<br>        <span class="hljs-keyword">set</span>(CMAKE_CXX_FLAGS_DEBUG <span class="hljs-string">&quot;/utf-8 /sdl /EHsc -nologo -Zc:wchar_t -FS -Zc:strictStrings -Zi -MDd -W3 -w44456 -w44457 -w44458 $&#123;DEFINES_DEBUG&#125;&quot;</span>)<br>        <span class="hljs-keyword">set</span>(CMAKE_C_FLAGS_DEBUG <span class="hljs-string">&quot;/utf-8 /sdl -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus /FS -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -EHsc $&#123;DEFINES_DEBUG&#125;&quot;</span>)<br>        <span class="hljs-keyword">set</span>(CMAKE_EXE_LINKER_FLAGS_DEBUG <span class="hljs-string">&quot;/NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /DEBUG&quot;</span>)<br>        <span class="hljs-comment"># set(CMAKE_MSVC_RUNTIME_LIBRARY &quot;MultiThreaded$&lt;$&lt;CONFIG:Debug&gt;:Debug&gt;&quot;)</span><br><br>        <span class="hljs-comment"># release模式下生成pdb用于调试</span><br>        <span class="hljs-keyword">set</span>(DEFINES_RELEASE <span class="hljs-string">&quot;-D_WINDOWS -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG&quot;</span>)<br>        <span class="hljs-keyword">set</span>(CMAKE_C_FLAGS_RELEASE <span class="hljs-string">&quot;/utf-8 /sdl -nologo -Zc:wchar_t -FS -Zi -Zc:strictStrings -O2 -MD -W3 -w44456 -w44457 -w44458 $&#123;DEFINES_RELEASE&#125;&quot;</span>)<br>        <span class="hljs-keyword">set</span>(CMAKE_CXX_FLAGS_RELEASE <span class="hljs-string">&quot;/utf-8 /sdl -nologo -Zc:wchar_t -FS -Zi -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -MD -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -EHsc $&#123;DEFINES_RELEASE&#125;&quot;</span>)<br>        <span class="hljs-keyword">set</span>(CMAKE_EXE_LINKER_FLAGS_RELEASE <span class="hljs-string">&quot;/NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /DEBUG /OPT:REF /OPT:ICF&quot;</span>)<span class="hljs-comment"># /NODEFAULTLIB:MSVCRT /NODEFAULTLIB:LIBC</span><br>    <span class="hljs-keyword">else</span> ()<br>        <span class="hljs-keyword">message</span>(FATAL_ERROR 不支持其他平台)<br>    <span class="hljs-keyword">endif</span> ()<br><span class="hljs-keyword">endif</span> ()<br></code></pre></td></tr></table></figure>
+<p>其中<code>CMAKE_CXX_FLAGS_RELEASE</code>的<code>-Zi</code>和<code>CMAKE_EXE_LINKER_FLAGS_RELEASE</code>的<code>/DEBUG /OPT:REF /OPT:ICF</code>是生成pdb添加的</p>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://stackoverflow.com/questions/28178978/how-to-generate-pdb-files-for-release-build-with-cmake-flags">https://stackoverflow.com/questions/28178978/how-to-generate-pdb-files-for-release-build-with-cmake-flags</a></p>
+<p>参考链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cmake.org/cmake/help/v3.5/module/FindPkgConfig.html?#module:FindPkgConfig">https://cmake.org/cmake/help/v3.5/module/FindPkgConfig.html?#module:FindPkgConfig</a></p>
+<p>总参考链接：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://cmake.org/cmake/help/latest/">CMake</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://doc.qt.io/qt-5/cmake-manual.html">Qt CMake</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CMake/">CMake</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Qt/">Qt</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/04/21/GitHub%E7%AD%89%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99%E5%8A%A0%E9%80%9F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">GitHub等国外网站加速</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/12/15/%E6%90%AD%E5%BB%BAQt%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
+                        <span class="hidden-mobile">msys2搭建Qt开发环境</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "L1NVVQMKRMoYHH4mknhB0VAg-gzGzoHsz",
+          app_key: "GahRa5GMtjARXXjxHRMwlNKN",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

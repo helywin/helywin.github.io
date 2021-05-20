@@ -1,0 +1,1323 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="人生は自分を探す旅です">
+  <meta name="author" content="helywin">
+  <meta name="keywords" content="">
+  <title>数字图像处理笔记 - 封楚寒的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"helywin.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":"82483a4063048e6739e27af68e9a44d3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>封楚寒的小窝</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/plan/">
+                <i class="iconfont icon-plan"></i>
+                计划
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/music/">
+                <i class="iconfont icon-music"></i>
+                音乐
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:" rel="external nofollow noreferrer">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s3.ax1x.com/2020/12/27/r5QtHK.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="数字图像处理笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      helywin
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-29 20:51" pubdate>
+        2020年12月29日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数字图像处理笔记</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年5月20日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="数字图像处理笔记"><a href="#数字图像处理笔记" class="headerlink" title="数字图像处理笔记"></a>数字图像处理笔记</h1><h2 id="2-数字图像基础"><a href="#2-数字图像基础" class="headerlink" title="2 数字图像基础"></a>2 数字图像基础</h2><p><strong>简单成像模型</strong></p>
+<script type="math/tex; mode=display">
+f(x,y)=i(x,y)r(x,y)</script><p>其中$i(x,y)$为入射到被观察场景的光源照射量, $r(x,y)$表示被场景中反射的照射量</p>
+<script type="math/tex; mode=display">
+0\le i(x,y)\le \infty</script><script type="math/tex; mode=display">
+0\le r(x,y)\le1</script><p><strong>灰度级数</strong>: 表示一个灰度的2的次方数, 比如256, 128等</p>
+<p><strong>内插</strong>: 把图像放大后中间的像素填充, 邻近内插, 双线性内插, 双三次内插</p>
+<p><strong>邻接</strong>: </p>
+<ul>
+<li><p>4邻接, 上下左右</p>
+</li>
+<li><p>8邻接, 上下左右+四对角</p>
+</li>
+<li><p>m邻接, 优先用4邻接联通, 比如</p>
+<p>1  -  1       1  -  1</p>
+<p>|  /     =&gt;  |</p>
+<p>1               1</p>
+</li>
+</ul>
+<p><strong>距离</strong>:</p>
+<ul>
+<li>$D_4$ 上下左右为1, 斜角为2</li>
+<li>$D_8$ 上下左右斜角都为1</li>
+</ul>
+<p><strong>仿射变换</strong>:</p>
+<p>包括缩放,平移,旋转,剪切</p>
+<p>变换矩阵:</p>
+<script type="math/tex; mode=display">
+\large
+\begin{bmatrix}
+x' \\
+y' \\
+1
+\end{bmatrix}
+= \pmb{A}
+\begin{bmatrix}
+x \\
+y \\
+1
+\end{bmatrix}
+=
+\begin{bmatrix}
+ a_{11} & a_{12} & a_{13}\\
+ a_{21} & a_{22} & a_{23}\\
+ 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y \\
+1
+\end{bmatrix}</script><p>恒等: 矩阵为单位阵</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}</script><p>缩放:</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+c_x & 0 & 0 \\
+0 & c_y & 0 \\
+0 & 0 & 1
+\end{bmatrix}</script><script type="math/tex; mode=display">
+\begin{gather}
+x'=c_xx \\
+y'=c_yy
+\end{gather}</script><p>平移:</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & 0 & t_x \\
+0 & 1 & t_y \\
+0 & 0 & 1
+\end{bmatrix}</script><script type="math/tex; mode=display">
+\begin{gather}
+x'=x+t_x\\
+y'=y+t_y
+\end{gather}</script><p>垂直剪切:</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & s_v & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}</script><script type="math/tex; mode=display">
+\begin{gather}
+x'=x+s_vy\\
+y'=y
+\end{gather}</script><p>水平剪切:</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & 0 & 0 \\
+s_h & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}</script><script type="math/tex; mode=display">
+\begin{gather}
+x'=x\\
+y'=y+s_hx
+\end{gather}</script><h2 id="3-灰度变换与空间滤波"><a href="#3-灰度变换与空间滤波" class="headerlink" title="3 灰度变换与空间滤波"></a>3 灰度变换与空间滤波</h2><p><strong>对数变换</strong>:</p>
+<script type="math/tex; mode=display">
+s=c\log(1+r)</script><p>大部分傅里叶频谱都是这样变换后方便观察</p>
+<p><strong>伽马变换</strong>:</p>
+<script type="math/tex; mode=display">
+s=cr^\gamma</script><p>显示器校正</p>
+<p><strong>比特平面分层</strong></p>
+<p><strong>直方图均衡</strong>: 使得直方图的分布是均匀密度的</p>
+<p><strong>直方图匹配(规定化)</strong>: 使得直方图的分布按照预设的分布分布</p>
+<p><strong>相关</strong>:</p>
+<script type="math/tex; mode=display">
+(w☆f)(x,y)=\sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x+s,y+t)</script><p><strong>卷积</strong>:</p>
+<script type="math/tex; mode=display">
+(w★f)(x,y)=\sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x-s,y-t)</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">性质</th>
+<th style="text-align:center">卷积</th>
+<th style="text-align:center">相关</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">交换律</td>
+<td style="text-align:center">$g★f=f★g$</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center">结合律</td>
+<td style="text-align:center">$f★(g★h)=(f★g)★h$</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center">分配律</td>
+<td style="text-align:center">$f★(g+h)=f★g+f★h$</td>
+<td style="text-align:center">$f☆(g+h)=f☆g+f☆h$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>空间滤波核</strong>:</p>
+<p>高斯函数:</p>
+<script type="math/tex; mode=display">
+G(s,t)=Ke^{-\frac{s^2+t^2}{2\sigma}}</script><p>积分:</p>
+<script type="math/tex; mode=display">
+\int_{-\infty}^{\infty}e^{-ax^2}=\sqrt{\frac{\pi}{a}}</script><p>拉普拉斯:</p>
+<script type="math/tex; mode=display">
+\nabla^2f=\frac{\partial^2f}{\partial x^2}+\frac{\partial^2f}{\partial y^2}</script><p>sobel算子:</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+-1&-2&-1\\
+0&0&0\\
+1&2&1
+\end{matrix}
+\qquad 
+\begin{matrix}
+-1&0&1\\
+-2&0&2\\
+-1&0&1
+\end{matrix}</script><p>算边缘时两幅图的边缘绝对值相加</p>
+<h2 id="4-频率域滤波"><a href="#4-频率域滤波" class="headerlink" title="4 频率域滤波"></a>4 频率域滤波</h2><p>欧拉公式:</p>
+<script type="math/tex; mode=display">
+e^{j\theta}=\cos(\theta)+j\sin(\theta)</script><p>推导: 把$e^\theta$用泰勒公式展开, 然后带入$j$</p>
+<p>傅里叶变换:</p>
+<script type="math/tex; mode=display">
+\Im{\{f(t)\}}=\int^{\infty}_{-\infty}f(t)e^{-j2\pi\mu t}\text{d}t</script><p>反变换:</p>
+<script type="math/tex; mode=display">
+f(t)=\int^{\infty}_{-\infty}F(\mu)e^{j2\pi\mu t}\text{d}\mu</script><p>卷积定理:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+(f★h)(t)\Leftrightarrow(H\cdot F)(\mu)\\
+(f\cdot h)(t)\Leftrightarrow(H★F)(\mu)
+\end{gather}</script><p>离散傅里叶变换:</p>
+<script type="math/tex; mode=display">
+\large
+\begin{gather}
+F(u)=\sum^{M-1}_{x=0}f(x)e^{-j2\pi ux/M}\\
+f(x)=\frac{1}{M}\sum^{M-1}_{u=0}F(u)e^{j2\pi ux/M}
+\end{gather}</script><p>二维离散傅里叶变换:</p>
+<script type="math/tex; mode=display">
+\large
+\begin{gather}
+F(u,v)=\sum^{M-1}_{x=0}\sum^{N-1}_{y=0}f(x,y)e^{-j2\pi(ux/M+vy/N)}\\
+f(x,y)=\frac{1}{MN}\sum^{M-1}_{u=0}\sum^{N-1}_{v=0}F(u,v)e^{j2\pi(ux/M+vy/N)}
+\end{gather}</script><p>平移和旋转:</p>
+<script type="math/tex; mode=display">
+\large
+\begin{gather}
+f(x,y)e^{j2\pi(u_0x/M+v_0x/N)}\Leftrightarrow F(u-u_0,v-v_0)\\
+f(x-x_0,y-y_0)\Leftrightarrow F(u,v)e^{-j2\pi(u_0x/M+v_0x/N)}
+\end{gather}</script><p>使用极坐标</p>
+<script type="math/tex; mode=display">
+x=r\cos(\theta),y=r\sin(\theta),u=\omega\cos(\varphi),v=\omega\sin(\varphi)</script><p>得到:</p>
+<script type="math/tex; mode=display">
+f(r,\theta+\theta_0)=F(\omega,\varphi+\theta_0)</script><p>频谱和原图是同方向角度旋转</p>
+<p>二维卷积定理:</p>
+<script type="math/tex; mode=display">
+(f\cdot h)(x,y)\Leftrightarrow \frac{1}{MN}(F★H)(u,v)</script><p>频域滤波公式:</p>
+<script type="math/tex; mode=display">
+g(x,y)=\text{Real}\left\{\Im^{-1}[H(u,v)F(u,v)] \right\}</script><p>要使得频谱中心对称, 原数据得乘以$(-1)^{x+y}$</p>
+<p>理想低通滤波器:</p>
+<p>存在振铃效应</p>
+<p>高斯低通:</p>
+<script type="math/tex; mode=display">
+\large
+H(u,v)=e^{-D^2(u,v)/2\sigma^2}</script><p>没有振铃效应</p>
+<p>巴特沃斯低通:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+H(u,v)=\frac{1}{1+\left [D(u,v)/D_0\right]^{2n}}\\
+\qquad D(u,v)=\left[(u-P/2)^2+(v-Q/2)^2\right]
+\end{gather}</script><p>高通:</p>
+<script type="math/tex; mode=display">
+H_{\text{HP}}(u,v)=1-H_{\text{LP}}(u,v)</script><p>高频强调滤波:</p>
+<script type="math/tex; mode=display">
+g(x,y)=\Im^{-1}\left\{\left[k_1+k_2H_{\text{HP}}(u,v)\right]F(u,v)\right\}</script><p>同态滤波:</p>
+<p>根据照射-反射模型</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+f(x,y)=i(x,y)r(x,y)\\
+z(x,y)=\ln f(x,y)=\ln i(x,y)+\ln r(x,y)
+\end{gather}</script><p>傅里叶变换后频域滤波再反变换</p>
+<h2 id="5-图像复原与重建"><a href="#5-图像复原与重建" class="headerlink" title="5 图像复原与重建"></a>5 图像复原与重建</h2><p>退化模型:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+g(x,y)=(h\bigstar f)(x,y)+\eta (x,y) \\
+G(u,v)=H(u,v)F(u,v)+N(u,v)
+\end{gather}</script><p>空间滤波:</p>
+<p>算术平均:</p>
+<script type="math/tex; mode=display">
+\large
+\hat{f}(x,y)=\frac{1}{mn}\sum_{(r,c)\in S_{xy}}g(r,c)</script><p>几何平均:</p>
+<script type="math/tex; mode=display">
+\large
+\hat{f}(x,y)=\left[\prod_{(r,c)\in S_{xy}}g(r,c)\right]^{\frac{1}{mn}}</script><p>谐波平均:</p>
+<script type="math/tex; mode=display">
+\large
+\hat{f}(x,y)=\frac{mn}{\sum_{(r,c)\in S_{xy}}\frac{1}{g(r,c)}}</script><p>反谐波平均:</p>
+<script type="math/tex; mode=display">
+\large
+\hat{f}(x,y)=\frac{\sum_{(r,c)\in S_{xy}}g(r,c)^{Q+1}}{\sum_{(r,c)\in S_{xy}}g(r,c)^Q}</script><p>中值滤波:</p>
+<script type="math/tex; mode=display">
+\large
+\hat{f}(x,y)=\sideset{}{}{\text{median}}_{(r,c)\in S_{xy}}\{g(r,c)\}</script><p>最大值:</p>
+<script type="math/tex; mode=display">
+\large
+\hat{f}(x,y)=\sideset{}{}{\text{max}}_{(r,c)\in S_{xy}}\{g(r,c)\}</script><p>最小值:</p>
+<script type="math/tex; mode=display">
+\large
+\hat{f}(x,y)=\sideset{}{}{\text{min}}_{(r,c)\in S_{xy}}\{g(r,c)\}</script><p>中点:</p>
+<script type="math/tex; mode=display">
+\large
+\hat{f}(x,y)=\frac{1}{2}\left[\sideset{}{}{\text{max}}_{(r,c)\in S_{xy}}\{g(r,c)\}+\sideset{}{}{\text{min}}_{(r,c)\in S_{xy}}\{g(r,c)\}\right]</script><p>修正阿尔法均值滤波:</p>
+<script type="math/tex; mode=display">
+\large
+\hat{f}(x,y)=\frac{1}{mn-d}\sum_{(r,c)\in S_{xy}}g_R(r,c)</script><p>自适应滤波器:</p>
+<p>自适应局部降噪:</p>
+<script type="math/tex; mode=display">
+\Large
+\hat{f}(x,y)=g(x,y)-\frac{\sigma_\eta^2}{\sigma_{S_{xy}}^2}[g(x,y)-\bar{z_{S_{xy}}}]</script><p>自适应均值滤波:</p>
+<p><img src="https://s3.ax1x.com/2021/01/02/rzUOuF.png" srcset="/img/loading.gif" alt="rzUOuF.png"></p>
+<p>优先保留当前点的值，并且采用更小的窗</p>
+<p>运动模糊退化:</p>
+<script type="math/tex; mode=display">
+\Large
+\begin{gather}
+g(x,y)=\int^T_0f\left[x-x_0(t),y-y_0(t)\right]\text{d}t\\
+G(u,v)=\int^T_0F(u,v)e^{-j2\pi x_0(t)}\text{d}t=F(u,v)\int^T_0e^{-j2\pi [ux_0(t)+vy_0(t)]}\text{d}t\\
+H(u,v)=\int^T_0e^{-j2\pi [ux_0(t)+vy_0(t)]}\text{d}t\\
+
+\end{gather}</script><p>令$x_0(t)=at/T$, $y_0(t)=bt/T$</p>
+<script type="math/tex; mode=display">
+\Large
+H(u,v)=\frac{T}{\pi(ua+vb)}\sin\left[\pi(ua+vb)\right]e^{-j\pi(ua+vb)}</script><p>维纳(最小均方差误差)滤波:</p>
+<p>对于噪声信号:</p>
+<script type="math/tex; mode=display">
+x=s+v</script><p>设计一个滤波器使得y接近原始信号, 即均方误差最小</p>
+<script type="math/tex; mode=display">
+E\left\{e^2\right\}=E\left\{(s-x\ast h)^2\right\}=\text{min}</script><p>离散域对h求导:</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\frac{\partial\{e^2\}}{\partial h}&=2E\left\{\left[\sum_mh(m)x(n-m)-s(n)\right]\sum_jx(n-j)\right\}\\
+&=2E\left\{\sum_mh(m)\sum_jx(n-j)x(n-m)-\sum_js(n)x(n-j)\right\}\\
+&=2\sum_mh(m)E\left\{\sum_jx(n-j)x(n-m)\right\}-2E\left\{\sum_js(n)x(n-j)\right\}\\
+&=2\sum_mh(m)R_{xx}(j-m)-2R_{xs}(j)
+\end{align}</script><p>令导数为0, 得到维纳霍夫方程</p>
+<script type="math/tex; mode=display">
+R_{xs}(j)=\sum_mh(m)R_{xx}(j-m)\qquad j\ge0</script><p>数理统计中:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+R_{xs}=R_{ss}+R_{vs}\\
+R_{xx}=R_{ss}+R_{sv}+R_{vs}+R_{vv}
+\end{gather}</script><p>s和v互相独立:</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{matrix}
+R_{xs}=R_{ss} \\
+R_{xx}=R_{ss}+R_{vv}
+\end{matrix}
+\right.</script><p>维纳霍夫方程z变换:</p>
+<script type="math/tex; mode=display">
+H(z)=\frac{P_{xs}(z)}{P_{xx}(z)}=\frac{P_{ss}(z)}{P_{ss}(z)+P_{vv}(z)}</script><p>对于FIR系统:</p>
+<script type="math/tex; mode=display">
+R_{xs}(j)=\sum_{m=0}^{N-1}h(m)R_{xx}(j-m)=\sum_{m=0}^{N-1}h(m)R_{xx}(m-j)</script><p>获得N个线性方程组:</p>
+<script type="math/tex; mode=display">
+\begin{align}
+R_{xs}(0)&=\sum_{m=0}^{N-1}h(m)R_{xx}(m-0)\\
+R_{xs}(1)&=\sum_{m=0}^{N-1}h(m)R_{xx}(m-1)\\
+...\\
+R_{xs}(N-1)&=\sum_{m=0}^{N-1}h(m)R_{xx}(m-N+1)\\
+\end{align}</script><p>写成矩阵:</p>
+<script type="math/tex; mode=display">
+\large
+\begin{bmatrix}
+ R_{xx}(0) & R_{xx}(1) & \cdots & R_{xx}(N-1) \\
+ R_{xx}(1) & R_{xx}(0) & \cdots & R_{xx}(N-2) \\
+ \vdots & \vdots & \ddots & \vdots \\
+ R_{xx}(N-1) & R_{xx}(N-2) & \cdots & R_{xx}(0)
+\end{bmatrix}
+\begin{bmatrix}
+h(0)\\
+h(1)\\
+\vdots\\
+h(N-1)
+\end{bmatrix}
+=
+\begin{bmatrix}
+R_{xs}(0)\\
+R_{xs}(1)\\
+\vdots\\
+R_{xs}(N-1)\\
+\end{bmatrix}</script><p>简写成:</p>
+<script type="math/tex; mode=display">
+\mathbb{R}_{xx}\mathcal{H}=\mathbb{R}_{xs}</script><p>对于非因果系统:</p>
+<script type="math/tex; mode=display">
+R_{xs}(j)=\sum_{m=-\infty}^{+\infty}h(m)R_{xx}(j-m)</script><p>变换到$\mathbf{Z}$域:</p>
+<script type="math/tex; mode=display">
+H(z)=\frac{P_{xs}(z)}{P_{xx}(z)}</script><p>得到:</p>
+<script type="math/tex; mode=display">
+h(n)=\frac{1}{2\pi j}\oint H(z)z^{n-1}\text{d}z</script><p>要得到期望信号才能求解方程, 对于图像来说, 选取参考意义较大的一部分即可</p>
+<h2 id="6-彩色图像处理"><a href="#6-彩色图像处理" class="headerlink" title="6 彩色图像处理"></a>6 彩色图像处理</h2><p>光的三原色: 红(575nm), 绿(535nm), 蓝(445nm)</p>
+<p>CRT显示器: 电子敏感荧光粉</p>
+<p>LCD: 偏振光阻止或让光通过</p>
+<p>CIE色度图:</p>
+<p><img src="https://s3.ax1x.com/2021/01/03/sCCLR0.png" srcset="/img/loading.gif" alt="sCCLR0.png"></p>
+<p>红色, 绿色和蓝色能量用X,Y,Z表示, 三色系数为</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+x=\frac{X}{X+Y+Z}\\
+y=\frac{Y}{X+Y+Z}\\
+z=\frac{Z}{X+Y+Z}\\
+z=1-x-y
+\end{gather}</script><p>彩色模型的x轴代表x, y轴代表y, 所以在x,y=1/3的地方为白色, 最外圈代表不同波长的光, 从白光到边界上的直线定义该光谱下的所有色度</p>
+<p>彩色模型:</p>
+<ul>
+<li><p>RGB, 彩色摄像机</p>
+</li>
+<li><p>CMY(青色,深红色,黄色), CMYK(青色, 深红色, 黄色, 黑色), 彩色打印机</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{gather}
+CMY=1-RGB\\
+CMY\Rightarrow CMYK
+\left\{\begin{matrix}
+K=\min(C,M,Y)\\
+C=(C-K)/(1-K)\\
+M=(M-K)/(1-K)\\
+Y=(Y-K)/(1-K)
+\end{matrix}\right.\\
+CMYK\Rightarrow CMY
+\left\{\begin{matrix}
+C=C(1-K)/+K\\
+M=M(1-K)/+K\\
+Y=Y(1-K)/+K
+\end{matrix}\right.
+\end{gather}</script><ul>
+<li>HSI(色调, 饱和度, 亮度), 解释颜色, 解除颜色信息和灰度级的关系</li>
+</ul>
+<p>RGB=&gt;HSI</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+H=\left\{\begin{matrix}
+\theta, & B\le G\\
+360-\theta, & B>G
+\end{matrix}\right.\\
+\theta=\arccos\left\{\frac{1/2\left[(R-G)+(R-B)\right]}{\left[(R-G)^2+(R-B)(G-B)\right]^{1/2}}\right\}\\
+S=1-\frac{3}{R+G+B}[\min(R,G,B)]\\
+I=\frac{1}{3}(R+G+B)
+\end{gather}</script><p>HSI=&gt;RGB</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+H'=\left\{\begin{matrix}
+H, & 0°\le H<120°\\
+H-120, & 120°\le H<240°\\
+H-240, & 240°\le H<360°
+\end{matrix}\right.\\
+I(1-S)=\left\{\begin{matrix}
+B, & 0°\le H<120°\\
+R, & 120°\le H<240°\\
+G, & 240°\le H<360°
+\end{matrix}\right.\\
+I\left[1+\frac{S\cos H'}{\cos(60°-H')}\right]=\left\{\begin{matrix}
+R, & 0°\le H<120°\\
+G, & 120°\le H<240°\\
+B, & 240°\le H<360°
+\end{matrix}\right.\\
+3I-(G+B)=\left\{\begin{matrix}
+G, & 0°\le H<120°\\
+B, & 120°\le H<240°\\
+R, & 240°\le H<360°
+\end{matrix}\right.\\
+\end{gather}</script><p>假彩色图: ColorMap</p>
+<h2 id="7-小波变换和其他图像变换"><a href="#7-小波变换和其他图像变换" class="headerlink" title="7 小波变换和其他图像变换"></a>7 小波变换和其他图像变换</h2><p>对于向量集$\pmb{w}$</p>
+<script type="math/tex; mode=display">
+\langle\pmb{w}_k,\pmb{w}_l\rangle=0,\qquad k\ne l</script><p>此时$\pmb{w}$为正交基</p>
+<p>对于另一个对偶向量集$\pmb{\tilde{w}}$, 有</p>
+<script type="math/tex; mode=display">
+\langle\pmb{\tilde{w}}_k,\pmb{w}_l\rangle=0,\qquad k\ne l</script><p>此时他们为<strong>双规范正交基</strong></p>
+<p>双规范正交, 对于两个</p>
+<p>对于离散的傅里叶变换:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+T(u)=\sum_{x=0}^{N-1}f(x)r(x,u)\\
+f(x)=\sum_{u=0}^{N-1}T(u)s(x,u)
+\end{gather}</script><p>$r(x,u)$为正变换核, $s(x,u)$为反变换核</p>
+<p>用内积表示为:</p>
+<script type="math/tex; mode=display">
+T(u)=\langle s(x,u),f(x)\rangle</script><p>对于变换矩阵(实数基):</p>
+<script type="math/tex; mode=display">
+\pmb{A}\pmb{A}^T=\pmb{I}</script><p>二维变换:</p>
+<script type="math/tex; mode=display">
+\large
+\begin{gather}
+T(u,v)=\sum_{x=0}^{N-1}\sum_{y=0}^{N-1}f(x,y)r(x,y,u,v)\\
+f(x,y)=\sum_{u=0}^{N-1}\sum_{v=0}^{N-1}T(u,v)s(x,y,u,v)\\
+r(x,y,u,v)=r_1(x,u)r_2(y,v)\\
+\text{xy对称}\qquad r(x,y,u,v)=r_1(x,u)r_1(y,v)
+\end{gather}</script><p>则:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+\pmb{T}=\pmb{A}\pmb{F}\pmb{A}^T\\
+\pmb{F}=\pmb{A}^T\pmb{T}\pmb{A}
+\end{gather}</script><p>把二维变换分解成两个一维变换</p>
+<p>对于矩形阵列, 变为:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+\pmb{T}=\pmb{A}_M\pmb{F}\pmb{A}_N^T\\
+\pmb{F}=\pmb{A}_M^T\pmb{T}\pmb{A}_N\\
+\end{gather}</script><p>$\pmb{F},\pmb{A}_M,\pmb{A}_N$分别为$M\times N,M\times M,N\times N$</p>
+<p>对于复数基:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+\pmb{T}=\pmb{A}\pmb{F}\pmb{A}^T\\
+\pmb{F}=\pmb{A}^{*T}\pmb{T}\pmb{A}^*\\
+\pmb{A}^{*T}\pmb{A}=\pmb{A}\pmb{A}^{*T}=\pmb{A}^*\pmb{A}^T=\pmb{A}^T\pmb{A}^*
+\end{gather}</script><p>常见的小波变换有: DHT(离散哈特利), DCT(离散余弦), DST(离散正弦), WHT(沃尔什-哈达玛基), SLT(斜坡基), HAAR(哈尔基), DB4(Daubechies基), BIOR3.1(双正交B样条基)</p>
+<p>海森堡不等式:</p>
+<script type="math/tex; mode=display">
+\sigma^2_t\sigma^2_f\ge\frac{1}{16\pi^2}</script><p>对于矩形的变换对象:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+f(x,y)=\pmb{F}=\sum_{u=0}^{N-1}\sum_{v=0}^{N-1}T(u,v)S_{u,v}
+\end{gather}</script><p>其中$S_{u,v}$为</p>
+<script type="math/tex; mode=display">
+\large
+S_{u,v}=\begin{bmatrix}
+s(0,0,u,v)&s(0,1,u,v)&\cdots&s(0,N,u,v)\\
+s(1,0,u,v)&s(1,1,u,v)&\cdots&s(1,N,u,v)\\
+\vdots&\vdots&\ddots&\vdots\\
+s(N,0,u,v)&s(N,1,u,v)&\cdots&s(N,N,u,v)
+\end{bmatrix}</script><p>可以看作$F$由$N\times N$个$N^2$的矩阵线性组合而成, 如果u,v可分离</p>
+<script type="math/tex; mode=display">
+S_{u,v}=s_us_v</script><p>那么$F$为图像, $S_{u,v}$为基图像</p>
+<p><strong>离散哈特利变换</strong>(DHT):</p>
+<script type="math/tex; mode=display">
+s(x,y,u,v)=\left[\frac{1}{\sqrt{N}}cas\left(\frac{2\pi ux}{N}\right)\right]
+\left[\frac{1}{\sqrt{N}}cas\left(\frac{2\pi vy}{N}\right)\right]</script><p>其中$\text{cas}(\theta)=\cos(\theta)+\sin(\theta)$</p>
+<p><strong>离散余弦变换</strong>(DCT):</p>
+<script type="math/tex; mode=display">
+s(x,y,u,v)=\cos\left(\frac{(2x+1)u\pi}{2N}\right)\cos\left(\frac{(2y+1)v\pi}{2N}\right)</script><p><strong>离散正弦变换</strong>(DST):</p>
+<script type="math/tex; mode=display">
+s(x,y,u,v)=\frac{2}{N+1}\sin\left(\frac{(x+1)(u+1)\pi}{N+1}\right)
+    \sin\left(\frac{(y+1)(v+1)\pi}{N+1}\right)</script><p><strong>沃尔什-哈达玛变换</strong>(WHT):</p>
+<script type="math/tex; mode=display">
+\LARGE
+s(x,y,u,v)=\frac{1}{N}(-1)^{\sum_{i=0}^{n-1}\left[b_i(x)p_i(u)+b_i(y)p_i(v)\right]}</script><p>其中$b_z(k)$表示z的二进制的第k位, 即<code>(z &amp; (0x1 &lt;&lt; k)) &gt;&gt; k</code></p>
+<p><strong>斜变换</strong>(SLT)</p>
+<p>递归生成</p>
+<p><strong>哈尔变换</strong>(HAAR):</p>
+<p>哈尔函数:</p>
+<p>对于任意一个$x\in[0,1)$</p>
+<script type="math/tex; mode=display">
+\large
+\begin{gather}
+u=2^p+q\qquad u>0\\
+q=2^p-u\\
+h_u(x)=\left\{
+\begin{matrix}
+1,&u=0,0\le x<1\\
+2^{p/2},&u>0,q/2^p\le x<(q+0.5)/2^p\\
+-2^{p/2},&u<0,(q+0.5)/2^p\le x<(q+1)/2^p\\
+0,&other
+\end{matrix}
+\right.
+\end{gather}</script><script type="math/tex; mode=display">
+s(x,u)=\frac{1}{\sqrt{N}}h_u(x/N), \qquad x=0,1,\cdots,N-1</script><p>变换矩阵为:</p>
+<script type="math/tex; mode=display">
+\large
+H_N=\begin{bmatrix}
+h_0(0/N)&h_0(1/N)&\cdots&h_0(N-1/N)\\
+h_1(0/N)&h_1(1/N)&\cdots&h_1(N-1/N)\\
+\vdots&\vdots&\ddots&\vdots\\
+h_{N-1}(0/N)&h_{N-1}(1/N)&\cdots&h_{N-1}(N-1/N)\\
+\end{bmatrix}</script><p><strong>小波变换</strong>:</p>
+<p>尺度函数:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+\{\varphi_{j,k}|j,k\in Z\}\\
+\varphi_{j,k}(x)=2^{j/2}\varphi(2^jx-k)
+\end{gather}</script><p>$k$决定x轴位置,j决定尺度形状, $V_{j_0}$的基为$j=j_0,k=\cdots,-1,0,1,2,\cdots$</p>
+<p>对于哈尔函数</p>
+<script type="math/tex; mode=display">
+\varphi(x)=\left\{
+\begin{matrix}
+1,&0\le x<1\\
+0,&other
+\end{matrix}\right.</script><p>$V_1$基为$V_0$基的线性组合</p>
+<script type="math/tex; mode=display">
+\varphi_{0,k}=\frac{1}{\sqrt{2}}\varphi_{1,2k}+\frac{1}{\sqrt{2}}\varphi_{1,2k+1}</script><p>多分辨率分析的要求:</p>
+<ol>
+<li>尺度函数相对于其整数平移是正交的</li>
+<li>尺度函数以低尺度张成的函数空间嵌套在高尺度张成的函数空间中, 即</li>
+</ol>
+<script type="math/tex; mode=display">
+V_{-\infty}\subset\cdots\subset V_{-1}\subset V_0\subset V_1\subset V_2\subset\cdots\subset V_{\infty}</script><ol>
+<li>在每个尺度上唯一可表示的函数是$f(x)=0$</li>
+<li>所有可度量的, 平方可积的函数都可表示为尺度函数在$j\rightarrow\infty$时的线性组合, 即</li>
+</ol>
+<script type="math/tex; mode=display">
+V_{\infty}=L^2(R)</script><p>$\varphi(x)$可以表示为自身2倍分辨率的线性组合, 细化膨胀方程</p>
+<script type="math/tex; mode=display">
+\varphi(x)=\sum_{k\in Z}h_{\varphi}(k)\sqrt{2}\varphi(2x-k)</script><p>对于规范正交尺度函数, (内积):</p>
+<script type="math/tex; mode=display">
+h_{\varphi}(k)=\left\langle\varphi(x),\sqrt{2}\varphi(2x-k)\right\rangle</script><p><strong>小波函数</strong>:</p>
+<p>递归式:</p>
+<script type="math/tex; mode=display">
+\psi(x)=\sum_k\sqrt{2}\varphi(2x-k)</script><p>其中$h_\psi(k)$系数称为(小波函数系数)</p>
+<p><strong>小波级数展开</strong>:</p>
+<script type="math/tex; mode=display">
+f(x)=\sum_kc_{j_0}(k)\varphi_{j_0,k}(x)+\sum_{j=j_0}^{\infty}\sum_kd_j(k)\psi_{j,k}(x)</script><p>式中, $c_{j_0}$和$d_j,j\ge j_0$分别称为<strong>近似系数</strong>和<strong>细节系数</strong>, 若尺度和小波函数规范正交, 则有:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+c_{j_0}=\left\langle f(x),\varphi_{j_0,k}(x)\right\rangle \\
+d_j=\left\langle f(x),\psi_{j,k}(x)\right\rangle
+\end{gather}</script><p>利用了正交性</p>
+<p>对于$y=x^2$的哈尔小波展开</p>
+<script type="math/tex; mode=display">
+y=\left\{
+\begin{matrix}
+x^2,&0\le x\le 1\\
+0,&other
+\end{matrix}
+\right.</script><p>采用哈尔小波计算</p>
+<script type="math/tex; mode=display">
+\begin{align}
+c_0(0)&=\int_0^1x^2\varphi_{0,0}(x)\text{d}x=\int_0^1x^2\text{d}x=\left.\frac{x^2}{3}\right|_0^1=\frac{1}{3}\\
+d_0(0)&=\int_0^1x^2\psi_{0,0}(x)\text{d}x=\int_0^{0.5}x^2\text{d}x-\int_{0.5}^1x^2\text{d}x=-\frac{1}{4}\\
+d_1(0)&=\int_0^1x^2\psi_{1,0}(x)\text{d}x=\int_0^{0.25}x^2\sqrt{2}\text{d}x-\int_{0.25}^{0.5}x^2\sqrt{2}\text{d}x=-\frac{1}{4}=-\frac{\sqrt{2}}{32}\\
+d_1(1)&=\int_0^1x^2\psi_{1,1}(x)\text{d}x=\int_{0.5}^{0.75}x^2\sqrt{2}\text{d}x-\int_{0.75}^{1}x^2\sqrt{2}\text{d}x=-\frac{1}{4}=-\frac{3\sqrt{2}}{32}
+\end{align}</script><p>带入展开函数可得到:</p>
+<script type="math/tex; mode=display">
+y=
+\sideset{}{}{\underbrace{
+\sideset{}{}{\underbrace{
+\sideset{}{}{\underbrace{\frac{1}{3}\varphi_{0,0}(x)}}_{V_0}
++
+\sideset{}{}{\underbrace{\left[-\frac{1}{4}\psi_{0,0}(x)\right]}}_{W_0}
+}}_{V_1=V_0\oplus W_0}
++
+\sideset{}{}{\underbrace{\left[-\frac{\sqrt{2}}{32}\psi_{1,0}(x)-\frac{3\sqrt{2}}{32}\psi_{1,1}(x)\right]}}_{W_1}
+}}_{V_2=V_1\oplus W_1=V_0\oplus W_0\oplus W_1}
++
+\cdots</script><p>一维离散小波变换</p>
+<script type="math/tex; mode=display">
+f(x)=\frac{1}{\sqrt{N}}\left[T_{\varphi}(0,0)\varphi(x)+\sum_{j=0}^{J-1}\sum_{k=0}^{2^j-1}T_{\psi}(j,k)\psi_{j,k}(x)\right]</script><p>其中</p>
+<script type="math/tex; mode=display">
+T_\varphi(0,0)=\left\langle f(x),\varphi_{0,0}(x)\right\rangle=\left\langle f(x),\varphi(x)\right\rangle=\frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}f(x)\varphi^*(x)</script><script type="math/tex; mode=display">
+T_\psi(j,k)=\left\langle f(x),\psi_{j,k}(x)\right\rangle=\frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}f(x)\psi^*_{j,k}(x)</script><p>$<em>$代表共轭, 第一个系数代表<strong>近似系数</strong>, 第二个代表<em>*细节系数</em></em>, 如果尺度函数和小波函数的值是实数, 那么可以消除共轭, 如果基是双正交的, 则上两式中的$\varphi$和$\psi$必须由他们的对偶$\tilde{\varphi}$和$\tilde{\psi}$代替</p>
+<p> <strong>$V_0$和$W_0$的基可以是双正交, 也可以是$V_0$的基为$W_0$的低尺度变换基</strong></p>
+<p>快速小波变换:</p>
+<p>通过$\varphi$和$\psi$的迭代可以</p>
+<p>展开系数:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+c_j(k)=\sum_nh_{\varphi}(n-2k)c_{j+1}(n)\\
+d_j(k)=\sum_nh_{\psi}(n-2k)c_{j+1}(n)\\
+\end{gather}</script><p>得到的变换结果:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+T_{\varphi}(j,k)=\sum_nh_{\varphi}(n-2k)T_{\varphi}(j+1,n)\\
+T_{\psi}(j,k)=\sum_nh_{\psi}(n-2k)T_{\psi}(j+1,n)
+\end{gather}</script><p>对于离散的小波变换:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+T_{\varphi}(j,k)=T_{\varphi}(j+1,n)\bigstar h_{\varphi}(-n)\\
+T_{\psi}(j,k)=T_{\psi}(j+1,n)\bigstar h_{\psi}(-n)
+\end{gather}</script><p>分析滤波器组:</p>
+<script type="math/tex; mode=display">
+T_{\varphi}(j+1,k)\rightarrow\left\{
+\begin{matrix}
+\bigstar h_{\psi}(-n)&\rightarrow&2\downarrow&\rightarrow&T_{\psi}(j,k)\\
+\bigstar h_{\varphi}(-n)&\rightarrow&2\downarrow&\rightarrow&T_{\varphi}(j,k)
+\end{matrix}
+\right.</script><p>对于多尺度的, 接着对$T_{\varphi}(j,k)$进行分析</p>
+<p><strong>二维小波变换</strong>:</p>
+<p>二维需要1个二维尺度函数$\varphi(x,y)$和3个二维小波函数$\psi^H(x,y),\psi^V(x,y),\psi^D(x,y)$分别代表垂直水平对角, 每个二维小波都是两个一维函数的积排除$\varphi(x)\psi(x)$, 剩下可分离的尺度函数:</p>
+<script type="math/tex; mode=display">
+\varphi(x,y)=\varphi(x)\varphi(y)</script><p>和可分离的”方向敏感小波”:</p>
+<script type="math/tex; mode=display">
+\begin{gather}
+\psi^H(x,y)=\psi(x)\varphi(y)\\
+\psi^V(x,y)=\varphi(x)\psi(y)\\
+\psi^D(x,y)=\psi(x)\psi(y)
+\end{gather}</script><script type="math/tex; mode=display">
+T_{\varphi}(j+1,k)\rightarrow\left\{
+\begin{matrix}
+\bigstar h_{\psi}(-n)\rightarrow2\downarrow\rightarrow
+\left\{
+\begin{matrix}
+\bigstar h_{\psi}(-m)\rightarrow2\downarrow\rightarrow T_{\psi}^D(j,k)\\
+\bigstar h_{\varphi}(-m)\rightarrow2\downarrow\rightarrow T_{\psi}^V(j,k)
+\end{matrix}
+\right.
+\\
+\bigstar h_{\varphi}(-n)\rightarrow2\downarrow\rightarrow
+\left\{
+\begin{matrix}
+\bigstar h_{\psi}(-m)\rightarrow2\downarrow\rightarrow T_{\psi}^H(j,k)\\
+\bigstar h_{\varphi}(-m)\rightarrow2\downarrow\rightarrow T_{\varphi}(j,k)
+\end{matrix}
+\right.
+\end{matrix}
+\right.</script><p>排布:</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+T_{\varphi}&T_{\psi}^H\\
+T_{\psi}^V&T_{\psi}^D\\
+\end{matrix}</script><h2 id="8-图像压缩和水印"><a href="#8-图像压缩和水印" class="headerlink" title="8 图像压缩和水印"></a>8 图像压缩和水印</h2><h2 id="9-形态学图像处理"><a href="#9-形态学图像处理" class="headerlink" title="9 形态学图像处理"></a>9 形态学图像处理</h2><p>反射: 结构元旋转180°</p>
+<p><strong>腐蚀</strong>:</p>
+<script type="math/tex; mode=display">
+A\ominus B=\{z|(B)_z\subseteq A\}</script><p>$A$为前景像素的集合, $B$为结构元, z是前景像素值(结构元中的点)</p>
+<p>等效于</p>
+<script type="math/tex; mode=display">
+I\circleddash B=\{z|(B)_z\subseteq A,A\subseteq I\}\cup\{A^c|A^c\subseteq I\}</script><script type="math/tex; mode=display">
+A\ominus B=\left\{z|(B)_z\cap A^c=\varnothing\right\}</script><p>$A^c$为补集</p>
+<p>腐蚀可以增强图像细的目标, 删除前景图像中小于结构元的部分</p>
+<p><strong>膨胀</strong>:</p>
+<script type="math/tex; mode=display">
+A\oplus B=\{z|(\hat{B})_z\cap A\neq \varnothing\}</script><p>$\hat{B}$为$B$的反射, 所有和$A$相交的位移点集合</p>
+<p>等效于</p>
+<script type="math/tex; mode=display">
+A\oplus B=\{z|[(\hat{B})_z\cap A]\subseteq A\}</script><p>膨胀运算类似于二维图像卷积, $B$为卷积核</p>
+<p>膨胀可以增长粗化图像中的目标, 用于修复断裂字符等</p>
+<p><strong>对偶性</strong>:</p>
+<script type="math/tex; mode=display">
+(A\ominus B)^c=A^c\oplus B^c</script><script type="math/tex; mode=display">
+(A\oplus B)^c=A^c\ominus B^c</script><p><strong>开运算</strong>:</p>
+<script type="math/tex; mode=display">
+A\circ B=(A\ominus B)\oplus B=\cup\{(B)_z|(B)_z\subseteq A\}</script><p><strong>闭运算</strong>:</p>
+<script type="math/tex; mode=display">
+A\bullet B=(A\oplus B)\ominus B=[\cup(B)_z|(B)_z\cap A=\varnothing]^c</script><p>开运算闭运算对偶:</p>
+<script type="math/tex; mode=display">
+(A\circ B)^c=(A^c\bullet B^c)</script><script type="math/tex; mode=display">
+(A\bullet B)^c=(A^c\circ B^c)</script><p>开运算性质:</p>
+<ul>
+<li>$A\circ B\subseteq A$</li>
+<li>若$C\subseteq D$, $C\circ B\subseteq D\circ B$</li>
+<li>$(A\circ B)\circ B=A\circ B$</li>
+</ul>
+<p>闭运算性质:</p>
+<ul>
+<li>$A\bullet B\subseteq A$</li>
+<li>若$C\subseteq D$, $C\bullet B\subseteq D\bullet B$</li>
+<li>$(A\bullet B)\bullet B=A\bullet B$</li>
+</ul>
+<p><strong>击中-击不中变换(HMT)</strong>:</p>
+<p>两个结构元, 前景中检测形状$B_1$, 背景中检测形状$B_2$:</p>
+<script type="math/tex; mode=display">
+I\circledast B_{1,2}=\{z|(B_1)_z\subseteq A, (B_2)_z\subseteq A^c\}=(A\ominus B_1)\cap(A^c\ominus B_2)</script><p>其中$B_1\cap B_2=\varnothing$</p>
+<p>目的是为了检测在$A$中和$B_1$一模一样的元, $B_2$为$B_1$膨胀1后减去$B_1$的元, 最终的结果是匹配到的结构元的选定的代表结构元的点, <strong>最终结果是位置点</strong></p>
+<p>形态学算法</p>
+<p><strong>边界提取</strong>:</p>
+<script type="math/tex; mode=display">
+\beta(A)=A-(A\ominus B)</script><p><strong>孔洞填充</strong>:</p>
+<script type="math/tex; mode=display">
+X_k=(X_{k-1}\oplus B)\cap I^c,\qquad k=1,2,3,\cdots</script><p>其中$X_0$为孔洞中的一个点, 需要提前给出</p>
+<p><strong>连通量提取</strong>:</p>
+<script type="math/tex; mode=display">
+X_k=(X_{k-1}\oplus B)\cap I,\qquad k=1,2,3,\cdots</script><p>其中$X_0$为前景上面的一个点, 根据这个点在前景上扩展直到不在增加, 对于4连通域要用4连通域的结构元, 对于8连通域要用8连通域的结构元</p>
+<p><strong>凸壳</strong>:</p>
+<p>点集$S$是凸的定义是: 连接$S$内任意两点的直线段完全在$S$内, 凸壳$H$是包含$S$的最小凸集</p>
+<script type="math/tex; mode=display">
+X_k^i=(X_{k-1}^i\circledast B^i)\cup X_{k-1}^i,\qquad i=\{1,2,3,4\},k=1,2,3,\cdots</script><p>结构元如图:</p>
+<p><img src="https://s3.ax1x.com/2021/01/12/sY4fcF.png" srcset="/img/loading.gif" alt="凸壳结构元"></p>
+<p><strong>图中的x代表不管有没有匹配到x都可以, 但是没有x的代表必须没有</strong></p>
+<p>原理:</p>
+<p>比如$B_1$, 在原图上检测到三个像素一列, 就会在三个像素中间的右侧填充前景色迭代下去</p>
+<p>四个方向最终运算的结果会是一个四边形, 但是根据原始图像的四个方向的最边缘像素可以截取掉多余的部分</p>
+<p><strong>细化</strong>:</p>
+<script type="math/tex; mode=display">
+A\otimes B=A-(A\circledast B)=A\cap (A\circledast B)^c</script><p>而$B$由一系列的结构元组成</p>
+<script type="math/tex; mode=display">
+A\otimes \{B\}=((\cdots((A\otimes B^1)\otimes B^2))\otimes B^n)</script><p>$A$从被$B^1$一直到$B^n$细化, 然后再重复, 直到所有的结构元都不能细化为止</p>
+<p>结构元如图:</p>
+<p><img src="https://s3.ax1x.com/2021/01/12/sY4hX4.png" srcset="/img/loading.gif" alt="细化结构元"></p>
+<p>对于上下左右来说, 细化是凸壳的类似逆运算, 会舍弃匹配到的一列(横,竖,斜), 对于数字图像来说</p>
+<p><strong>骨架</strong>:</p>
+<p>集合$A$的骨架$S(A)$</p>
+<p>(a) 若$z$是$S(A)$的一点, $(D)_z$是以$z$为圆心的最大圆盘, 则不存在包含$(D)_z$且位于$A$内的更大圆盘(不必以$z$为中心). 满足这些条件的圆盘$(D)_z$称为<strong>最大圆盘</strong></p>
+<p>(b) 若$(D)_z$是一个最大圆盘, 则它在两个或多个不同位置与$A$的边界接触</p>
+<p>$A$的骨架可以用开运算表示:</p>
+<script type="math/tex; mode=display">
+S(A)=\bigcup_{k=0}^KS_k(A)</script><script type="math/tex; mode=display">
+S_k(A)=(A\ominus kB)-(A\ominus kB)\circ B</script><p>每次被开运算去掉的部分的集合</p>
+<p><strong>裁剪</strong>:</p>
+<p>消除噪声引起骨架的寄生部分</p>
+<p><strong>形态学重建</strong>:</p>
+<p>根据标记点, 在原图前景处不断扩散直到不能扩散, 用处比如在带字的图像上取单个字符</p>
+<p>测地膨胀</p>
+<script type="math/tex; mode=display">
+D_G^{(1)}(F)=(F\oplus B)\cap G</script><p>$F$为标记图像, $G$为模板图像, 根据模板图像的以标记点为中心膨胀</p>
+<p>对于大小为$n$的测地膨胀</p>
+<script type="math/tex; mode=display">
+D_G^{(n)}(F)=D_G^{(1)}\left[D_G^{(n-1)}(F)\right]</script><p>测地腐蚀</p>
+<script type="math/tex; mode=display">
+E_G^{(1)}(F)=(F\ominus B)\cup G</script><p>$F$为标记图像, $G$为模板图像, 根据模板图像将标记图像不断腐蚀</p>
+<script type="math/tex; mode=display">
+E_G^{(n)}(F)=E_G^{(1)}\left[E_G^{(n-1)}(F)\right]</script><p>标记$F$对模板图像$G$的膨胀形态学重建为</p>
+<script type="math/tex; mode=display">
+R_G^D(F)=D_G^k(F)</script><p>腐蚀形态学重建</p>
+<script type="math/tex; mode=display">
+R_G^E(F)=E_G^k(F)</script><p><strong>灰度形态学</strong></p>
+<p><strong>灰度腐蚀</strong></p>
+<script type="math/tex; mode=display">
+[f\ominus b](x,y)=\min_{(s,t)\in b}\{f(x+s,y+t)\}</script><p><strong>灰度膨胀</strong></p>
+<script type="math/tex; mode=display">
+[f\oplus b](x,y)=\max_{(s,t)\in b}\{f(x-s,y-t)\}</script><p>其中$(x-s,y-t)$相当于结构元旋转了180°</p>
+<p><strong>灰度开运算闭运算</strong></p>
+<p>和二值图像相同</p>
+<p><strong>灰度级形态学算法</strong></p>
+<p><strong>形态学平滑</strong></p>
+<p>使用先做开运算后做闭运算</p>
+<p><strong>形态学梯度</strong></p>
+<script type="math/tex; mode=display">
+g=(f\oplus b)-(f\ominus b)</script><p><strong>顶帽变换和底帽变换</strong></p>
+<p>顶帽</p>
+<script type="math/tex; mode=display">
+T_{hat}(f)=f-(f\circ b)</script><p>底帽</p>
+<script type="math/tex; mode=display">
+B_{hat}(f)=(f\bullet b)-f</script><p>例子, 用顶帽变换校正阴影用于阈值分割, 基于Otsu最优阈值会因为阴影出现错误</p>
+<p>粒度测量</p>
+<p>纹理分割</p>
+<p><strong>灰度形态学重建</strong></p>
+<script type="math/tex; mode=display">
+</script>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/note/">note</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/04/C++%E5%B9%B6%E5%8F%91%E7%AC%94%E8%AE%B0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++并发笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/28/%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE/">
+                        <span class="hidden-mobile">图像去雾</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "L1NVVQMKRMoYHH4mknhB0VAg-gzGzoHsz",
+          app_key: "GahRa5GMtjARXXjxHRMwlNKN",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

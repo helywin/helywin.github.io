@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="人生は自分を探す旅です">
+  <meta name="author" content="helywin">
+  <meta name="keywords" content="">
+  <title>breakpad崩溃日志收集 - 封楚寒的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"helywin.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":"82483a4063048e6739e27af68e9a44d3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>封楚寒的小窝</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/plan/">
+                <i class="iconfont icon-plan"></i>
+                计划
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/music/">
+                <i class="iconfont icon-music"></i>
+                音乐
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:" rel="external nofollow noreferrer">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s3.ax1x.com/2020/12/27/r5QtHK.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="breakpad崩溃日志收集">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      helywin
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-09-07 20:09" pubdate>
+        2019年9月7日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      830 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">breakpad崩溃日志收集</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年5月20日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>breakpad是Google chromium项目中的一个C/C++程序崩溃日志收集工具，支持跨平台</p>
+<h2 id="breakpad安装"><a href="#breakpad安装" class="headerlink" title="breakpad安装"></a>breakpad安装</h2><p>arch linux直接通过pacman安装。</p>
+<p>从github上克隆代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/google/breakpad.git<br></code></pre></td></tr></table></figure>
+<p>进入代码目录进行编译</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">cd</span> breakpad<br><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-keyword">cd</span> build<br>../configure --prefix=/usr/local<br><span class="hljs-keyword">make</span><br>sudo <span class="hljs-keyword">make</span> install<br></code></pre></td></tr></table></figure>
+<p>编译时会报错</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">..<span class="hljs-regexp">/src/</span>client<span class="hljs-regexp">/linux/</span>crash_generation<span class="hljs-regexp">/crash_generation_client.cc:40:10: fatal error: third_party/</span>lss/linux_syscall_support.h: 没有那个文件或目录<br> #<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;third_party/lss/linux_syscall_support.h&quot;</span><br></code></pre></td></tr></table></figure>
+<p>将头文件</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://raw.githubusercontent.com/adelshokhy112/linux-syscall-support/master/lss/linux_syscall_support.h">https://raw.githubusercontent.com/adelshokhy112/linux-syscall-support/master/lss/linux_syscall_support.h</a></p>
+<p>下载到 <code>src/third_party/lss</code>下，新建目录lss</p>
+<p>返回原来目录重新执行<code>make</code>和<code>sudo make install</code></p>
+<p>breakpad不包含cmake库，可以通过cmake调用pkg-config来找到具体安装位置和链接库</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>CMakeLists.txt</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.5</span>)<br><span class="hljs-keyword">project</span>(test_breakpad LANGUAGES CXX)<br><br><span class="hljs-keyword">set</span>(CMAKE_CXX_COMPILER g++)<br><span class="hljs-keyword">set</span>(CMAKE_C_COMPILER gcc)<br><span class="hljs-keyword">set</span>(CMAKE_CXX_STANDARD <span class="hljs-number">11</span>)<br><br><span class="hljs-keyword">if</span> (CMAKE_BUILD_TYPE <span class="hljs-keyword">MATCHES</span> Debug)<br>    <span class="hljs-keyword">message</span>(<span class="hljs-string">&quot;Debug编译&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_CXX_FLAGS <span class="hljs-string">&quot;-pipe -g -std=gnu++11 -Wall -D_REENTRANT -fPIC&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_C_FLAGS <span class="hljs-string">&quot;-pipe -g -Wall -D_REENTRANT -fPIC&quot;</span>)<br><span class="hljs-keyword">else</span> () <span class="hljs-comment">#CMAKE_BUILD_TYPE MATCHES Release</span><br>    <span class="hljs-keyword">message</span>(<span class="hljs-string">&quot;Release编译&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_CXX_FLAGS <span class="hljs-string">&quot;-pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC&quot;</span>)<br>    <span class="hljs-keyword">set</span>(CMAKE_C_FLAGS <span class="hljs-string">&quot;-pipe -O2 -Wall -W -D_REENTRANT -fPIC&quot;</span>)<br><span class="hljs-keyword">endif</span> ()<br><br><span class="hljs-keyword">include</span>(FindPkgConfig)<br>pkg_check_modules(BREAKPAD_CLIENT REQUIRED breakpad-client)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;breakpad_client目录 $&#123;BREAKPAD_CLIENT_INCLUDE_DIRS&#125;&quot;</span>)<br><span class="hljs-keyword">include_directories</span>(<span class="hljs-variable">$&#123;BREAKPAD_CLIENT_INCLUDE_DIRS&#125;</span>)<br><br><span class="hljs-keyword">set</span>(EXECUTABLE_OUTPUT_PATH <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/output)<br><span class="hljs-keyword">add_executable</span>(test_breakpad main.cpp func.cpp func.hpp)<br><span class="hljs-keyword">target_link_libraries</span>(test_breakpad<br>        <span class="hljs-variable">$&#123;BREAKPAD_CLIENT_LIBRARIES&#125;</span><br>        pthread)<br></code></pre></td></tr></table></figure>
+<p>main.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;breakpad/client/linux/handler/exception_handler.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;func.hpp&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">dumpCallback</span><span class="hljs-params">(<span class="hljs-keyword">const</span> google_breakpad::MinidumpDescriptor &amp;descriptor,</span></span><br><span class="hljs-function"><span class="hljs-params">                         <span class="hljs-keyword">void</span> *context, <span class="hljs-keyword">bool</span> succeeded)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Dump path: %s\n&quot;</span>, descriptor.<span class="hljs-built_in">path</span>());<br>    <span class="hljs-keyword">return</span> succeeded;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">google_breakpad::MinidumpDescriptor <span class="hljs-title">descriptor</span><span class="hljs-params">(<span class="hljs-string">&quot;./&quot;</span>)</span></span>;<br>    <span class="hljs-function">google_breakpad::ExceptionHandler <span class="hljs-title">eh</span><span class="hljs-params">(descriptor, <span class="hljs-literal">nullptr</span>, dumpCallback, <span class="hljs-literal">nullptr</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">-1</span>)</span></span>;<br>    <span class="hljs-built_in">crash</span>();<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>func.hpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> TEST_BREAKPAD_FUNC_HPP</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> TEST_BREAKPAD_FUNC_HPP</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">crash</span><span class="hljs-params">()</span></span>;<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">//TEST_BREAKPAD_FUNC_HPP</span></span><br></code></pre></td></tr></table></figure>
+<p>func.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;func.hpp&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">crash</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">volatile</span> <span class="hljs-keyword">int</span> *a = (<span class="hljs-keyword">int</span> *) (<span class="hljs-literal">nullptr</span>);<br>    *a = <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>执行cmake时加上<code>-DCMAKE_BUILD_TYPE=Debug</code>，编译时会加上-g参数</p>
+<p>运行编译的<code>test_breakpad</code>程序，会在同目录下生产一个dmp文件</p>
+<p>执行如下两条语句：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">minidump-2-core f989e168-1c4e-410b-be97d4b2-f02ba661.dmp &gt; core<br>gdb test_breakpad core<br></code></pre></td></tr></table></figure>
+<p>最后可以看到如下输出：</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs coq">Core was generated <span class="hljs-built_in">by</span> `/home/bekl/code/test_breakpad/output/test_breakpad&#x27;.<br><span class="hljs-keyword">Program</span> terminated <span class="hljs-built_in">with</span> signal SIGSEGV, Segmentation fault.<br>#<span class="hljs-number">0</span>  <span class="hljs-number">0x000000000040238d</span> <span class="hljs-built_in">in</span> crash () <span class="hljs-built_in">at</span> /home/bekl/code/test_breakpad/func.cpp:<span class="hljs-number">10</span><br><span class="hljs-number">10</span>        *a = <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<p>执行cmake时加上<code>-DCMAKE_BUILD_TYPE=Release</code>时</p>
+<p>可以看到输出：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript">Core was generated <span class="hljs-keyword">by</span> `/home/bekl/code/test_breakpad/output/test_breakpad&#x27;.<br>Program terminated <span class="hljs-keyword">with</span> signal SIGSEGV, Segmentation fault.<br><span class="hljs-comment">#0  0x0000000000401f50 in crash() ()</span><br></code></pre></td></tr></table></figure>
+<p>另外一种方法可以查看帮助文件：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/google/breakpad/blob/master/docs/linux_starter_guide.md#producing-symbols-for-your-application">https://github.com/google/breakpad/blob/master/docs/linux_starter_guide.md#producing-symbols-for-your-application</a></p>
+<p>得到的输出结果：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Crash</span> reason:  SIGSEGV /SEGV_MAPERR<br><span class="hljs-attribute">Crash</span> address: <span class="hljs-number">0</span>x<span class="hljs-number">0</span><br><span class="hljs-attribute">Process</span> uptime: not available<br><br><span class="hljs-attribute">Thread</span> <span class="hljs-number">0</span> (crashed)<br> <span class="hljs-attribute">0</span>  test_breakpad!crash() + <span class="hljs-number">0</span>x<span class="hljs-number">0</span><br>    <span class="hljs-attribute">rax</span> = <span class="hljs-number">0</span>xffffffffffffffff   rdx = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000000000</span><br>    <span class="hljs-attribute">rcx</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>f<span class="hljs-number">618</span>b<span class="hljs-number">132</span>b<span class="hljs-number">20</span>   rbx = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>cd<span class="hljs-number">0</span><br>    <span class="hljs-attribute">rsi</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000000000</span>   rdi = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000619860</span><br>    <span class="hljs-attribute">rbp</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>e<span class="hljs-number">70</span>   rsp = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>cc<span class="hljs-number">8</span><br>     <span class="hljs-attribute">r8</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000000000</span>    r<span class="hljs-number">9</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000000000</span><br>    <span class="hljs-attribute">r10</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000000131</span>   r<span class="hljs-number">11</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>f<span class="hljs-number">618</span>b<span class="hljs-number">6</span>db<span class="hljs-number">4</span>c<span class="hljs-number">0</span><br>    <span class="hljs-attribute">r12</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>d<span class="hljs-number">60</span>   r<span class="hljs-number">13</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>f<span class="hljs-number">50</span><br>    <span class="hljs-attribute">r14</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>d<span class="hljs-number">60</span>   r<span class="hljs-number">15</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000000000</span><br>    <span class="hljs-attribute">rip</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000401</span>f<span class="hljs-number">50</span><br>    <span class="hljs-attribute">Found</span> by: given as instruction pointer in context<br> <span class="hljs-attribute">1</span>  test_breakpad!main + <span class="hljs-number">0</span>x<span class="hljs-number">11</span>a<br>    <span class="hljs-attribute">rbx</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>cd<span class="hljs-number">0</span>   rbp = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>e<span class="hljs-number">70</span><br>    <span class="hljs-attribute">rsp</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>cd<span class="hljs-number">0</span>   r<span class="hljs-number">12</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>d<span class="hljs-number">60</span><br>    <span class="hljs-attribute">r13</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>f<span class="hljs-number">50</span>   r<span class="hljs-number">14</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>d<span class="hljs-number">60</span><br>    <span class="hljs-attribute">r15</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000000000</span>   rip = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000401</span>d<span class="hljs-number">9</span>a<br>    <span class="hljs-attribute">Found</span> by: call frame info<br> <span class="hljs-attribute">2</span>  libc-<span class="hljs-number">2</span>.<span class="hljs-number">23</span>.so + <span class="hljs-number">0</span>x<span class="hljs-number">20830</span><br>    <span class="hljs-attribute">rbx</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000000000</span>   rbp = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000412</span>f<span class="hljs-number">20</span><br>    <span class="hljs-attribute">rsp</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>e<span class="hljs-number">80</span>   r<span class="hljs-number">12</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000401</span>df<span class="hljs-number">0</span><br>    <span class="hljs-attribute">r13</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>f<span class="hljs-number">50</span>   r<span class="hljs-number">14</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000000000</span><br>    <span class="hljs-attribute">r15</span> = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000000000</span>   rip = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>f<span class="hljs-number">618</span>ad<span class="hljs-number">8</span>e<span class="hljs-number">830</span><br>    <span class="hljs-attribute">Found</span> by: call frame info<br> <span class="hljs-attribute">3</span>  test_breakpad + <span class="hljs-number">0</span>x<span class="hljs-number">1</span>c<span class="hljs-number">80</span><br>    <span class="hljs-attribute">rsp</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>ea<span class="hljs-number">0</span>   rip = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000401</span>c<span class="hljs-number">80</span><br>    <span class="hljs-attribute">Found</span> by: stack scanning<br> <span class="hljs-attribute">4</span>  test_breakpad!main + <span class="hljs-number">0</span>x<span class="hljs-number">170</span><br>    <span class="hljs-attribute">rsp</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>eb<span class="hljs-number">8</span>   rip = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000401</span>df<span class="hljs-number">0</span><br>    <span class="hljs-attribute">Found</span> by: stack scanning<br> <span class="hljs-attribute">5</span>  ld-<span class="hljs-number">2</span>.<span class="hljs-number">23</span>.so + <span class="hljs-number">0</span>x<span class="hljs-number">107</span>db<br>    <span class="hljs-attribute">rsp</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>f<span class="hljs-number">10</span>   rip = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>f<span class="hljs-number">618</span>b<span class="hljs-number">8</span>fd<span class="hljs-number">7</span>db<br>    <span class="hljs-attribute">Found</span> by: stack scanning<br> <span class="hljs-attribute">6</span>  test_breakpad!main + <span class="hljs-number">0</span>x<span class="hljs-number">170</span><br>    <span class="hljs-attribute">rsp</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>f<span class="hljs-number">28</span>   rip = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000401</span>df<span class="hljs-number">0</span><br>    <span class="hljs-attribute">Found</span> by: stack scanning<br> <span class="hljs-attribute">7</span>  test_breakpad!_start + <span class="hljs-number">0</span>x<span class="hljs-number">29</span><br>    <span class="hljs-attribute">rsp</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>f<span class="hljs-number">40</span>   rip = <span class="hljs-number">0</span>x<span class="hljs-number">0000000000401</span>e<span class="hljs-number">19</span><br>    <span class="hljs-attribute">Found</span> by: stack scanning<br> <span class="hljs-attribute">8</span>  <span class="hljs-number">0</span>x<span class="hljs-number">7</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>f<span class="hljs-number">48</span><br>    <span class="hljs-attribute">rsp</span> = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>f<span class="hljs-number">48</span>   rip = <span class="hljs-number">0</span>x<span class="hljs-number">00007</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">450</span>f<span class="hljs-number">48</span><br>    <span class="hljs-attribute">Found</span> by: call frame info<br><br><span class="hljs-attribute">Loaded</span> modules:<br><span class="hljs-attribute">0x00400000</span> - <span class="hljs-number">0</span>x<span class="hljs-number">00418</span>fff  test_breakpad  ???  (main)<br><span class="hljs-attribute">0x7f618aa65000</span> - <span class="hljs-number">0</span>x<span class="hljs-number">7</span>f<span class="hljs-number">618</span>ab<span class="hljs-number">6</span>cfff  libm-<span class="hljs-number">2</span>.<span class="hljs-number">23</span>.so  ???<br><span class="hljs-attribute">0x7f618ad6e000</span> - <span class="hljs-number">0</span>x<span class="hljs-number">7</span>f<span class="hljs-number">618</span>af<span class="hljs-number">2</span>dfff  libc-<span class="hljs-number">2</span>.<span class="hljs-number">23</span>.so  ???  (WARNING: No symbols, libc-<span class="hljs-number">2</span>.<span class="hljs-number">23</span>.so, <span class="hljs-number">6</span>E<span class="hljs-number">4</span>AA<span class="hljs-number">51</span>C<span class="hljs-number">760</span>D<span class="hljs-number">811805</span>B<span class="hljs-number">12</span>E<span class="hljs-number">49</span>FE<span class="hljs-number">6</span>B<span class="hljs-number">80190</span>)<br><span class="hljs-attribute">0x7f618b138000</span> - <span class="hljs-number">0</span>x<span class="hljs-number">7</span>f<span class="hljs-number">618</span>b<span class="hljs-number">14</span>dfff  libgcc_s.so.<span class="hljs-number">1</span>  ???<br><span class="hljs-attribute">0x7f618b34e000</span> - <span class="hljs-number">0</span>x<span class="hljs-number">7</span>f<span class="hljs-number">618</span>b<span class="hljs-number">4</span>bffff  libstdc++.so.<span class="hljs-number">6</span>.<span class="hljs-number">0</span>.<span class="hljs-number">21</span>  ???<br><span class="hljs-attribute">0x7f618b6d0000</span> - <span class="hljs-number">0</span>x<span class="hljs-number">7</span>f<span class="hljs-number">618</span>b<span class="hljs-number">6</span>e<span class="hljs-number">7</span>fff  libpthread-<span class="hljs-number">2</span>.<span class="hljs-number">23</span>.so  ???<br><span class="hljs-attribute">0x7f618b8ed000</span> - <span class="hljs-number">0</span>x<span class="hljs-number">7</span>f<span class="hljs-number">618</span>b<span class="hljs-number">912</span>fff  ld-<span class="hljs-number">2</span>.<span class="hljs-number">23</span>.so  ???  (WARNING: No symbols, ld-<span class="hljs-number">2</span>.<span class="hljs-number">23</span>.so, D<span class="hljs-number">6</span>BAADC<span class="hljs-number">0</span>A<span class="hljs-number">3</span>F<span class="hljs-number">94439</span>F<span class="hljs-number">2</span>B<span class="hljs-number">3567</span>C<span class="hljs-number">078</span>EC<span class="hljs-number">4720</span>)<br><span class="hljs-attribute">0x7fff4a4cd000</span> - <span class="hljs-number">0</span>x<span class="hljs-number">7</span>fff<span class="hljs-number">4</span>a<span class="hljs-number">4</span>cefff  linux-gate.so  ???<br><span class="hljs-attribute">2019</span>-<span class="hljs-number">09</span>-<span class="hljs-number">09</span> <span class="hljs-number">09</span>:<span class="hljs-number">49</span>:<span class="hljs-number">01</span>: minidump.cc:<span class="hljs-number">5079</span>: INFO: Minidump closing minidump<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/breakpad/">breakpad</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/10/%E8%AF%BA%E5%9F%BA%E4%BA%9A7Plus%E5%88%B7%E6%9C%BA/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">诺基亚7Plus刷机</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/05/07/Qt-MySQL%E5%BA%93%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">Qt MySQL库问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "L1NVVQMKRMoYHH4mknhB0VAg-gzGzoHsz",
+          app_key: "GahRa5GMtjARXXjxHRMwlNKN",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

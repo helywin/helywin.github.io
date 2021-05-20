@@ -1,0 +1,711 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="人生は自分を探す旅です">
+  <meta name="author" content="helywin">
+  <meta name="keywords" content="">
+  <title>康德的大刀读书笔记 - 封楚寒的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"helywin.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":"82483a4063048e6739e27af68e9a44d3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>封楚寒的小窝</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/plan/">
+                <i class="iconfont icon-plan"></i>
+                计划
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/music/">
+                <i class="iconfont icon-music"></i>
+                音乐
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:" rel="external nofollow noreferrer">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s3.ax1x.com/2020/12/27/r5QtHK.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="康德的大刀读书笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      helywin
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-17 22:35" pubdate>
+        2020年9月17日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">康德的大刀读书笔记</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年5月20日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="康德的大刀"><a href="#康德的大刀" class="headerlink" title="康德的大刀"></a>康德的大刀</h1><p><img src="https://s3.ax1x.com/2020/12/29/rHErdO.jpg" srcset="/img/loading.gif" alt="康德的大刀"></p>
+<h2 id="一、对象"><a href="#一、对象" class="headerlink" title="一、对象"></a>一、对象</h2><ul>
+<li>物理学研究的是物体概念，不是实体，研究成果为物体概念间的关系。</li>
+<li><strong>物自体</strong>是独立于人的思维的东西，我们观察物自体得到杂多，杂多要成为命题必须具备形式，<strong>纯粹概念</strong>和<strong>经验概念</strong>，纯粹概念是时间空间（直观）和判断（概念）。命题 = 材料 +（形式 = 时间空间 + 概念），<strong>物</strong>是形式+材料，称为<strong>经验概念</strong>。</li>
+<li>存在一词不能与物自体连用。</li>
+<li>独立于思维的东西无法用来做证明或判断。</li>
+<li>凡是事实，一定是经验命题。经验命题不一定要正确或者经验有的。</li>
+<li>语言</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+\text{语言}
+  \begin{cases}
+  \text{所有词，词组、句、成语等等的总和} \\\\
+  \text{产生事实的能力，造句子的能力}
+  \end{cases}
+\end{align}</script><ul>
+<li>主体：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+\text{主体}
+  \begin{cases}
+  \text{行规定者}\rightarrow\text{心} \\\\
+  \text{被规定者}\rightarrow
+  \begin{cases}
+  \text{灵魂：心理对象} \\\\
+  \text{肉体：物理对象}
+  \end{cases}
+  \end{cases}
+\end{align}</script><ul>
+<li>纯粹的直观：空间、时间；经验的直观：纯粹的直观 + 感觉材料。</li>
+<li>心有两种能力：感性和知性。</li>
+<li>实体不是物自体，是时间中永恒不变的，万物皆流指的是物自体不断变化。</li>
+</ul>
+<h2 id="二、知性为自然界立法"><a href="#二、知性为自然界立法" class="headerlink" title="二、知性为自然界立法"></a>二、知性为自然界立法</h2><ul>
+<li>人们通过规律总结实体之间的关系，规律就是不变，关系必须是不变者与不变者直接的关系。</li>
+<li>实体是纯粹的概念，实体是不变的，不随时间变化。</li>
+<li>因果律两种表现方式：因先于果；因果关系。因果律是纯粹概念。</li>
+<li>心产生的形式</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+  \text{心产生的形式}
+  \begin{cases}
+  \text{感性的形式：纯粹直观——空间、时间} \\\\
+  \text{知性的形式：纯粹概念——范畴}
+  \end{cases}
+\end{align}</script><ul>
+<li>物在变化，物的实体不变，变化的只是物的状态。同一物在同一时刻不存在两种状态，两种状态一前一后，前一种状态为因，后一种状态为果。</li>
+<li>自然界是经验之总和（经验概念，经验命题）。自然界即自然图景，对全人类而言是公共的，在语言中具备思维形式。</li>
+<li>卡尔·波普尔“三个时间”说</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+  \text{三个世界}
+  \begin{cases}
+  \text{物自体} \\\\
+  \text{心中之物} \\\\
+  \text{言中之物}
+  \end{cases}
+\end{align}</script><ul>
+<li>巫术在哲学之前，是哲学之母；宗教则在古代哲学之后，是哲学之女。</li>
+<li>先验论的先验是指逻辑上的优先而非时间上的。意味“重要于”。</li>
+</ul>
+<h2 id="三、物自体（本无）"><a href="#三、物自体（本无）" class="headerlink" title="三、物自体（本无）"></a>三、物自体（本无）</h2><ul>
+<li>物自体独立于心。</li>
+<li>不可把量范畴加于独立于思维之外者。</li>
+<li>唯有同一不变者才可言其变，且为其状态变。唯同一不变者方可命名。</li>
+<li>绝对的无，即无对待者的无，也即不与“有”相对立的无，此即“本无”。</li>
+</ul>
+<h2 id="四、物自体（意会体）：自由"><a href="#四、物自体（意会体）：自由" class="headerlink" title="四、物自体（意会体）：自由"></a>四、物自体（意会体）：自由</h2><ul>
+<li>区分两种纯粹理性的使用<ol>
+<li>把人和神的世界与自然物的世界划分了开来，并宣布，神无能过问自然界，社会比自然重要，道德比科学重要。</li>
+<li>在人和神的世界中，人比神重要，神只是人设想出来以便维护社会道德的。</li>
+<li>人要坚持道德、理想、信仰，克制情欲以合乎实践理性，这样才配享有幸福。</li>
+</ol>
+</li>
+<li>概略结构</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+  \begin{cases}
+  \text{先验原理论} 
+  \begin{cases}
+  \text{先验感性论} \\\\
+  \text{先验逻辑}
+  \begin{cases}
+  \text{先验分析论} 
+  \begin{cases}
+  \text{概念分析论······概念} \\\\
+  \text{原理分析论······判断}
+  \end{cases} \\\\
+  \text{先验辩证论························推理}
+  \end{cases}
+  \end{cases} \\\\
+  \text{先验方法论}
+  \end{cases}
+\end{align}</script><script type="math/tex; mode=display">
+\begin{align}
+  \text{先验逻辑}
+  \begin{Bmatrix}
+  \text{先验分析论} 
+  \begin{cases}
+  \text{概念分析论······本体论} \\\\
+  \text{原理分析论······理性物理学}
+  \end{cases} \\\\
+  \text{先验辩证论}
+  \begin{cases}
+  \text{·····················理性心理学} \\\\
+  \text{·····················理性神学}
+  \end{cases}
+  \end{Bmatrix}
+  \text{自然形而上学}
+\end{align}</script><script type="math/tex; mode=display">
+\begin{align}
+  \text{形而上学}
+  \begin{cases}
+  \text{自然形而上学} \\\\
+  \text{道德形而上学}
+  \begin{cases}
+  \text{德性论} \\\\
+  \text{法权论}
+  \end{cases}
+  \end{cases}
+\end{align}</script><ul>
+<li>自由是对必然性的认识和运用。</li>
+<li>历史必然性即自由。（骑在马背上的世界精神）</li>
+<li>意会体：理性存在体</li>
+<li>物的二重性：人的自然立场和社会立场。现象体和意会体。</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+\text{物}
+  \begin{cases}
+  \text{自然}
+  \begin{cases}
+  \text{本无} \\\\
+  \text{现象}
+  \end{cases} \\\\
+  \text{意会体 自由（社会）}
+  \begin{cases}
+  \text{德性论} \\\\
+  \text{法权论}
+  \end{cases}
+  \end{cases}
+\end{align}</script><ul>
+<li>人对物只有权力没有义务，权力指对物的占有。包括经验的占有和意会的占有。经验的占有即肉体的占有，使用；所有权的占有即意会的占有。意会的占有是占有物自体。被意会的占有的物是意会体。</li>
+<li>人的二重性。自然；社会（法权和义务）</li>
+<li>自由：人不受自己的自然冲动左右；不论做什么，总应该做到使你的意志所遵循的准则永远能够同时成为一条普遍的立法原理；应当。自律、社会性、应当。</li>
+<li>自由要求互相承认，这称作自由的社会性。</li>
+<li>人与禽兽的区别在于人是自由的而，禽兽是必然的。</li>
+<li>社会是人与人之间的关系之总和。（法权和义务的关系）</li>
+<li>人还有必然性的一面，所以行动<strong>应当</strong>合乎道德法则，仅仅是意会体则<strong>必然</strong>合乎道德法则。</li>
+<li>人们对自身的自由本性的意识有着决定性的作用。社会从自然状态向自由状态发展。</li>
+<li>上帝概念属于道德学的概念。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Philosophy/">Philosophy</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/29/Vim%E6%8A%80%E5%B7%A7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vim技巧</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/14/gettext%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile">gettext使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "L1NVVQMKRMoYHH4mknhB0VAg-gzGzoHsz",
+          app_key: "GahRa5GMtjARXXjxHRMwlNKN",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

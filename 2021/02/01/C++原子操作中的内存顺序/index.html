@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="人生は自分を探す旅です">
+  <meta name="author" content="helywin">
+  <meta name="keywords" content="">
+  <title>C++原子操作中的内存顺序 - 封楚寒的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"helywin.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":"82483a4063048e6739e27af68e9a44d3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>封楚寒的小窝</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/plan/">
+                <i class="iconfont icon-plan"></i>
+                计划
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/music/">
+                <i class="iconfont icon-music"></i>
+                音乐
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:" rel="external nofollow noreferrer">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s3.ax1x.com/2020/12/27/r5QtHK.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="C++原子操作中的内存顺序">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      helywin
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-01 19:43" pubdate>
+        2021年2月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      85
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C++原子操作中的内存顺序</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年5月20日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="C-原子操作中的内存顺序"><a href="#C-原子操作中的内存顺序" class="headerlink" title="C++原子操作中的内存顺序"></a>C++原子操作中的内存顺序</h1><p>头文件 <code>&lt;atomic&gt;</code></p>
+<p>C++11形式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">memory_order</span> &#123;</span><br>    memory_order_relaxed,<br>    memory_order_consume,<br>    memory_order_acquire,<br>    memory_order_release,<br>    memory_order_acq_rel,<br>    memory_order_seq_cst<br>&#125; memory_order;<br></code></pre></td></tr></table></figure>
+<p>C++20形式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-keyword">class</span> <span class="hljs-title">memory_order</span> :</span> <span class="hljs-comment">/*unspecified*/</span> &#123;<br><br>    relaxed, consume, acquire, release, acq_rel, seq_cst<br>&#125;;<br><span class="hljs-keyword">inline</span> <span class="hljs-keyword">constexpr</span> memory_order memory_order_relaxed = memory_order::relaxed;<br><span class="hljs-keyword">inline</span> <span class="hljs-keyword">constexpr</span> memory_order memory_order_consume = memory_order::consume;<br><span class="hljs-keyword">inline</span> <span class="hljs-keyword">constexpr</span> memory_order memory_order_acquire = memory_order::acquire;<br><span class="hljs-keyword">inline</span> <span class="hljs-keyword">constexpr</span> memory_order memory_order_release = memory_order::release;<br><span class="hljs-keyword">inline</span> <span class="hljs-keyword">constexpr</span> memory_order memory_order_acq_rel = memory_order::acq_rel;<br><span class="hljs-keyword">inline</span> <span class="hljs-keyword">constexpr</span> memory_order memory_order_seq_cst = memory_order::seq_cst;<br></code></pre></td></tr></table></figure>
+<p><code>std::memory_order</code>指定了怎样访问内存，包括常规的、非原子的内存访问、如何围绕原子操作排序。在多核系统中如果没有任何约束，当多个线程同时读写一些变量，一个线程可能以一种顺序观察值的改变不同于其他写入这些值的顺序。确实，这个很明显的顺序改变可能存在于在不同的读取线程之间。一些相似的影响甚至可能发生在单处理器系统，由于编译器内存模型允许的转换。</p>
+<p>库里面提供的默认的原子操作行为是为顺序一致性的。该默认行为的可能会有性能损失，但是库中的原子操作可以给定额外的<code>std::memory_order</code>变量指定额外的约束条件。在原子性之外，编译器和处理器还必须强制该操作。</p>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>memory_order_relaxed</td>
+<td>宽松操作：没有对于其他读写强加的同步或者顺序，只有当前操作的原子性需要得到保证</td>
+</tr>
+<tr>
+<td>memory_order_consume</td>
+<td>一个使用这个内存顺序的加载操作在被影响的内存位置被称为消费操作：在该加载操作<strong>之前</strong>当前线程不允许有依赖于该值（要加载的）的读或者写的记录——当前线程中依赖于当前加载的该值的读或写不能被重排到此加载前。在其他释放相同原子变量的线程的对数据依赖变量的写操作对当前线程可见。在大多数情况下，这只会影响编译器的优化</td>
+</tr>
+<tr>
+<td>memory_order_acquire</td>
+<td>一个使用这个内存顺序的加载操作在被影响的内存位置被称为获得操作：在该加载操作<strong>之前</strong>当前线程不允许有其他的读或者写的记录——当前线程中读或写不能被重排到此加载前。在其他释放相同原子变量的线程的写操作对当前线程可见。</td>
+</tr>
+<tr>
+<td>memory_order_release</td>
+<td>一个使用这个内存顺序的存储操作被称为释放操作：在该存储操作<strong>之后</strong>当前线程不允许有其他的读或者写的记录——当前线程中的读或写不能被重排到此存储后。当前线程的所有写都对其他获取了相同原子变量的线程可见。</td>
+</tr>
+<tr>
+<td>memory_order_acq_rel</td>
+<td>一个使用这个内存顺序的读-修改-写操作同时是获得操作和释放操作：在该存储操作前后不允许内存的读写——当前线程的读或写内存不能被重排到此存储前或后。所有释放了相同原子变量的线程的所有的写在修改之前都可见，同时其他获取了相同原子变量的线程的修改都可见</td>
+</tr>
+<tr>
+<td>memory_order_seq_cst</td>
+<td>一个使用这个内存顺序的加载操作使用获得操作，存储使用释放操作，读-修改-写操作同时使用获得操作和释放操作，再加上存在一个单独全序，其中所有线程以同一顺序观测到所有修改</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="正式描述"><a href="#正式描述" class="headerlink" title="正式描述"></a>正式描述</h2><p>线程间的同步和内存顺序界定了表达式的求值和副作用在不同线程中的执行顺序，术语定义如下：</p>
+<h3 id="先序于（Sequenced-before）"><a href="#先序于（Sequenced-before）" class="headerlink" title="先序于（Sequenced-before）"></a>先序于（Sequenced-before）</h3><p>在同一线程中，求值A可以先序于求值B，如<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.cppreference.com/w/cpp/language/eval_order">求值顺序</a>中所描述。</p>
+<blockquote>
+<p>“按顺序早于 (sequenced-before)”是同一线程中的求值之间的非对称的、传递的对偶关系。</p>
+<ul>
+<li>若 A 按顺序早于 B，则 A 的求值将在 B 的求值开始前完成。</li>
+<li>若 A 不按顺序早于 B 而 B 按顺序早于 A，则 B 的求值将在 A 的求值开始前完成。</li>
+<li>若 A 不按顺序早于 B 而 B 不按顺序早于 A，则存在两种可能：<ul>
+<li>A 与 B 的求值是无顺序 (unsequenced) 的：它们能以任何顺序进行，并可能重叠（在同一执行线程内，编译器可以将组成 A 与 B 的 CPU 指令交错）</li>
+<li>A 与 B 的求值是顺序不确定 (indeterminately sequenced) 的：它们可以任意顺序进行但不可重叠，A 在 B 前完成，或 B 在 A 前完成。下次求值相同表达式时顺序可以相反。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="携带依赖（Carries-dependency）"><a href="#携带依赖（Carries-dependency）" class="headerlink" title="携带依赖（Carries dependency）"></a>携带依赖（Carries dependency）</h3><p>在同一线程中，求值A先序于求值B可能也把依赖带进了B（就是说B依赖于A），如果满足以下条件：</p>
+<ol>
+<li><p>A用作为B的操作数，除了：</p>
+<p>a. 如果B调用<code>std::kill_dependency</code></p>
+<p>b. 如果A是内建<code>&amp;&amp;</code>, <code>||</code>, <code>?:</code>或<code>,</code>操作符的左操作数，因为前两个操作符右边的求值可能会省去，后面的一个是条件一个是逗号操作符，只是单纯的连接多个运算</p>
+</li>
+<li><p>A写入标量对象M，B从M读取</p>
+</li>
+<li>A携带依赖到X，X携带依赖到B（依赖链条）</li>
+</ol>
+<p><code>std::kill_dependency</code>用于告诉编译器使用<code>std::memory_order_consume</code>原子加载的变量的依赖树不在<code>std::kill_dependency</code>的返回值扩展，就是变量不携带依赖到返回值</p>
+<p>用于避免当依赖链条离开函数作用域（同时函数没有加上<code>[[carries_dependency]]</code>属性）不必要的<code>std::memory_order_acquire</code>围栏</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">foo</span> &#123;</span> <span class="hljs-keyword">int</span>* a; <span class="hljs-keyword">int</span>* b; &#125;;<br>std::atomic&lt;<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">foo</span>*&gt;</span> foo_head[<span class="hljs-number">10</span>];<br><span class="hljs-keyword">int</span> foo_array[<span class="hljs-number">10</span>][<span class="hljs-number">10</span>];<br> <br><span class="hljs-comment">// consume operation starts a dependency chain, which escapes this function</span><br>[[carries_dependency]] <span class="hljs-function">struct foo* <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> foo_head[i].<span class="hljs-built_in">load</span>(memory_order_consume);<br>&#125;<br> <br><span class="hljs-comment">// the dependency chain enters this function through the right parameter</span><br><span class="hljs-comment">// and is killed before the function ends (so no extra acquire operation takes place)</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">g</span><span class="hljs-params">(<span class="hljs-keyword">int</span>* x, <span class="hljs-keyword">int</span>* y [[carries_dependency]])</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">kill_dependency</span>(foo_array[*x][*y]);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="修改顺序（Modification-order）"><a href="#修改顺序（Modification-order）" class="headerlink" title="修改顺序（Modification order）"></a>修改顺序（Modification order）</h3><p>对于特定的原子变量的所有修改，发生于对于特定原子变量的全序</p>
+<p>下列四种需求对于所有原子操作都得到保证：</p>
+<ol>
+<li><strong>写-写连贯</strong>：若修改某原子对象 M 的求值 A （写操作）<em>先发生于</em>修改 M 的求值 B ，则 A 在 M 的<em>修改顺序</em>中早于 B 出现。</li>
+<li><strong>读-读连贯</strong>：若某原子对象 M 的值计算 A （读操作）<em>先发生于</em>对 M 的值计算 B ，且 A 的值来自对 M 的写操作 X ，则 B 的值要么是 X 所存储的值，要么是在 M 的<em>修改顺序</em>中后于 X 出现的 M 上的副效应 Y 所存储的值。</li>
+<li><strong>读-写连贯</strong>：若某原子对象 M 的值计算 A （读操作）<em>先发生于</em> M 上的操作 B （写操作），则 A 的值来自 M 的<em>修改顺序</em>中早于 B 出现的副效应 X （写操作）。</li>
+<li><strong>写-读连贯</strong>：若原子对象 M 上的副效应 X （写操作）<em>先发生于</em> M 的值计算 B （读操作），则求值 B 应从 X 或从 M 的<em>修改顺序</em>中后随 X 的副效应 Y 取得其值。</li>
+</ol>
+<h3 id="释放序列（Release-sequence）"><a href="#释放序列（Release-sequence）" class="headerlink" title="释放序列（Release sequence）"></a>释放序列（Release sequence）</h3><p>在原子对象 M 上执行一次<em>释放操作</em> A 之后， M 的修改顺序的最长连续子序列由下列内容组成</p>
+<ol>
+<li>由执行 A 的同一线程所执行的写操作</li>
+<li>任何线程对 M 的原子的读-修改-写操作</li>
+</ol>
+<p>被称为<em>以 A 为首的释放序列</em>。</p>
+<h3 id="依赖先序于（Dependency-ordered-before）"><a href="#依赖先序于（Dependency-ordered-before）" class="headerlink" title="依赖先序于（Dependency-ordered before）"></a>依赖先序于（Dependency-ordered before）</h3><p>线程之间，如果下列任一条件满足则求值A依赖先序于求值B：</p>
+<ol>
+<li>A对原子变量M执行释放操作，在另外线程中B对相同的原子变量M执行消费操作，同时B读取A（所引领的释放序列的任何部分 (C++20 前)）写的值。</li>
+<li>A依赖先序于X同时X携带依赖到B（依赖链条）</li>
+</ol>
+<h3 id="线程间先发生于（Inter-thread-happens-before）"><a href="#线程间先发生于（Inter-thread-happens-before）" class="headerlink" title="线程间先发生于（Inter-thread happens-before）"></a>线程间先发生于（Inter-thread happens-before）</h3><p>线程之间，如果下列任一条件满足则求值A线程间发生于求值B：</p>
+<ol>
+<li>A同步于B</li>
+<li>A依赖先序于B</li>
+<li>A同步于X，X先序于B</li>
+<li>A先序于X，X线程间发生于B</li>
+<li>A线程间发生于X，X线程间发生于B</li>
+</ol>
+<h3 id="先发生于（Happens-before）"><a href="#先发生于（Happens-before）" class="headerlink" title="先发生于（Happens-before）"></a>先发生于（Happens-before）</h3><p>不管线程，如果下列任一条件满足则求值A先发生于B：</p>
+<ol>
+<li>A先序于B</li>
+<li>A线程间先发生于B</li>
+</ol>
+<p>实现需要确保先发生于关系是无环的，有必要需要通过额外的同步确保（仅当消费操作参与才是必要的）。</p>
+<p>如果一个求值修改了一块内存，其他求值读取或修改同一块内存，如果至少有一个求值不是原子操作，那么程序的行为就是未定义的（程序存在数据竞争），除非在两个求值之间存在先发生于的关系。</p>
+<h3 id="简单先发生于（C-20）"><a href="#简单先发生于（C-20）" class="headerlink" title="简单先发生于（C++20）"></a>简单先发生于（C++20）</h3><p>不管线程，如果下列任一条件满足则求值A先发生于B：</p>
+<ol>
+<li>A先序于B</li>
+<li>A同步于B</li>
+<li>A先发生于X，X先发生于B</li>
+</ol>
+<p>Note: 如果没有消费操作，简单先发生于和先发生于关系是一样的</p>
+<h3 id="强先发生于（C-20）"><a href="#强先发生于（C-20）" class="headerlink" title="强先发生于（C++20）"></a>强先发生于（C++20）</h3><p>不管线程，如果下列任一条件满足则求值A先发生于B：</p>
+<p>C++20之前：</p>
+<ol>
+<li>A先序于B</li>
+<li>A同步于B</li>
+<li>A强先发生于X，X强先发生于B</li>
+</ol>
+<p>C++20之后：</p>
+<ol>
+<li>A先序于B</li>
+<li>A同步于B，A和B均为序列一致的原子操作</li>
+<li>A先序于X，X简单先发生于Y，Y先序于B</li>
+<li>A强先发生于X，X强先发生于B</li>
+</ol>
+<p>Note: 非正式的，若 A <em>强先发生于</em> B ，则在所有环境中 A 均显得在 B 之前得到求值。</p>
+<p>Note: 强先发生于排除消费操作</p>
+<h3 id="可见副效应（Visible-side-effects）"><a href="#可见副效应（Visible-side-effects）" class="headerlink" title="可见副效应（Visible side-effects）"></a>可见副效应（Visible side-effects）</h3><p>如果以下都为真，那么标量M上的可见副效应A关于标量M上的值计算B是可见的：</p>
+<ol>
+<li>A先发生于B</li>
+<li>对于标量M上不存在可见副效应X，其中A先发生于X，X先发生于B</li>
+</ol>
+<p>若副效应 A 相对于值计算 B 可见，则<em>修改顺序</em>中，满足 B 不<em>先发生于</em>它的对 M 的副效应的最长相接子集，被称为<em>副效应的可见序列</em>。（ B 所确定的 M 的值，将是这些副效应之一所存储的值）</p>
+<p>注意：线程间同步可归结为避免数据竞争（通过建立先发生于关系），及定义在何种条件下哪些副效应成为可见。</p>
+<h3 id="std-atomic-thread-fence"><a href="#std-atomic-thread-fence" class="headerlink" title="std::atomic_thread_fence"></a>std::atomic_thread_fence</h3><p>对于非原子操作或者宽松原子操作建立内存同步顺序，由于通过顺序指导，不需要关联原子操作</p>
+<p>例子1：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;atomic&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-comment">//Global</span><br><span class="hljs-function">std::string <span class="hljs-title">computation</span><span class="hljs-params">(<span class="hljs-keyword">int</span> v)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">to_string</span>(v);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string&amp; str)</span></span><br><span class="hljs-function"></span>&#123;<br>    std::cout &lt;&lt; str &lt;&lt; std::endl;<br>&#125;<br><br>std::atomic&lt;<span class="hljs-keyword">int</span>&gt; arr[<span class="hljs-number">3</span>] = &#123;<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>&#125;;<br>std::string data[<span class="hljs-number">1000</span>]; <span class="hljs-comment">//non-atomic data</span><br><br><span class="hljs-comment">// Thread A, compute 3 values</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ThreadA</span><span class="hljs-params">(<span class="hljs-keyword">int</span> v0, <span class="hljs-keyword">int</span> v1, <span class="hljs-keyword">int</span> v2)</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-comment">//assert( 0 &lt;= v0, v1, v2 &lt; 1000 );</span><br>    data[v0] = <span class="hljs-built_in">computation</span>(v0);<br>    data[v1] = <span class="hljs-built_in">computation</span>(v1);<br>    data[v2] = <span class="hljs-built_in">computation</span>(v2);<br>    std::<span class="hljs-built_in">atomic_thread_fence</span>(std::memory_order_release);<br>    std::<span class="hljs-built_in">atomic_store_explicit</span>(&amp;arr[<span class="hljs-number">0</span>], v0, std::memory_order_relaxed);<br>    std::<span class="hljs-built_in">atomic_store_explicit</span>(&amp;arr[<span class="hljs-number">1</span>], v1, std::memory_order_relaxed);<br>    std::<span class="hljs-built_in">atomic_store_explicit</span>(&amp;arr[<span class="hljs-number">2</span>], v2, std::memory_order_relaxed);<br>&#125;<br><br><span class="hljs-comment">// Thread B, prints between 0 and 3 values already computed.</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ThreadB</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> v0 = std::<span class="hljs-built_in">atomic_load_explicit</span>(&amp;arr[<span class="hljs-number">0</span>], std::memory_order_relaxed);<br>    <span class="hljs-keyword">int</span> v1 = std::<span class="hljs-built_in">atomic_load_explicit</span>(&amp;arr[<span class="hljs-number">1</span>], std::memory_order_relaxed);<br>    <span class="hljs-keyword">int</span> v2 = std::<span class="hljs-built_in">atomic_load_explicit</span>(&amp;arr[<span class="hljs-number">2</span>], std::memory_order_relaxed);<br>    std::<span class="hljs-built_in">atomic_thread_fence</span>(std::memory_order_acquire);<br><span class="hljs-comment">// v0, v1, v2 might turn out to be -1, some or all of them.</span><br><span class="hljs-comment">// otherwise it is safe to read the non-atomic data because of the fences:</span><br>    <span class="hljs-keyword">if</span> (v0 != <span class="hljs-number">-1</span>) &#123; <span class="hljs-built_in">print</span>(data[v0]); &#125;<br>    <span class="hljs-keyword">if</span> (v1 != <span class="hljs-number">-1</span>) &#123; <span class="hljs-built_in">print</span>(data[v1]); &#125;<br>    <span class="hljs-keyword">if</span> (v2 != <span class="hljs-number">-1</span>) &#123; <span class="hljs-built_in">print</span>(data[v2]); &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">std::thread <span class="hljs-title">thread1</span><span class="hljs-params">(ThreadA, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)</span></span>;<br>    <span class="hljs-function">std::thread <span class="hljs-title">thread2</span><span class="hljs-params">(ThreadB)</span></span>;<br>    thread1.<span class="hljs-built_in">join</span>();<br>    thread2.<span class="hljs-built_in">join</span>();<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>该代码最后的结果是要么三个变量都为-1，要么都为赋值后的值并打印出来</p>
+<p>还要一个扫描数组的例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> num_mailboxes = <span class="hljs-number">32</span>;<br>std::atomic&lt;<span class="hljs-keyword">int</span>&gt; mailbox_receiver[num_mailboxes];<br>std::string mailbox_data[num_mailboxes];<br> <br><span class="hljs-comment">// The writer threads update non-atomic shared data </span><br><span class="hljs-comment">// and then update mailbox_receiver[i] as follows</span><br>mailbox_data[i] = ...;<br>std::<span class="hljs-built_in">atomic_store_explicit</span>(&amp;mailbox_receiver[i], receiver_id, std::memory_order_release);<br> <br><span class="hljs-comment">// Reader thread needs to check all mailbox[i], but only needs to sync with one</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; num_mailboxes; ++i) &#123;<br>    <span class="hljs-keyword">if</span> (std::<span class="hljs-built_in">atomic_load_explicit</span>(&amp;mailbox_receiver[i], std::memory_order_relaxed) == my_id) &#123;<br>        std::<span class="hljs-built_in">atomic_thread_fence</span>(std::memory_order_acquire); <span class="hljs-comment">// synchronize with just one writer</span><br>        <span class="hljs-built_in">do_work</span>( mailbox_data[i] ); <span class="hljs-comment">// guaranteed to observe everything done in the writer thread before</span><br>                    <span class="hljs-comment">// the atomic_store_explicit()</span><br>    &#125;<br> &#125;<br></code></pre></td></tr></table></figure>
+<p><code>std::memory_order_release</code>顺序会确保writer线程中的两个写入是同步的，然后利用<code>std::atomic_thread_fence</code>确保遍历的时候两个变量都更新过或都没更新过，而不会出现中间状态</p>
+<h3 id="消费操作（Consume-operation）"><a href="#消费操作（Consume-operation）" class="headerlink" title="消费操作（Consume operation）"></a>消费操作（Consume operation）</h3><p>带<code>memory_order_consume</code>或者更强的原子性加载为消费操作。注意<code>std::atomic_thread_fence</code>会比消费操作强加更强的同步需求。</p>
+<h3 id="获取操作（Acquire-operation"><a href="#获取操作（Acquire-operation" class="headerlink" title="获取操作（Acquire operation)"></a>获取操作（Acquire operation)</h3><p>带<code>memory_order_acquire</code>或者更强的原子性加载为获取操作。Mutex的<code>lock()</code>方法也是一个获取操作。注意<code>std::atomic_thread_fence</code>会比消费操作强加更强的同步需求。</p>
+<h3 id="释放操作（Release-operation）"><a href="#释放操作（Release-operation）" class="headerlink" title="释放操作（Release operation）"></a>释放操作（Release operation）</h3><p>带<code>memory_order_release</code>或者更强的原子性存储为释放操作。Mutex的<code>unlock()</code>方法也是一个释放操作。<code>std::atomic_thread_fence</code>会比消费操作强加更强的同步需求。</p>
+<h2 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h2><h3 id="宽松顺序（Relaxed-ordering）"><a href="#宽松顺序（Relaxed-ordering）" class="headerlink" title="宽松顺序（Relaxed ordering）"></a>宽松顺序（Relaxed ordering）</h3><p>标记为<code>memory_order_relaxed</code>的原子操作不是同步操作；对于并发内存的访问没有强加顺序。只保证原子性和修改一致性。</p>
+<p>例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// Thread 1:</span><br>r1 = y.<span class="hljs-built_in">load</span>(std::memory_order_relaxed); <span class="hljs-comment">// A</span><br>x.<span class="hljs-built_in">store</span>(r1, std::memory_order_relaxed); <span class="hljs-comment">// B</span><br><span class="hljs-comment">// Thread 2:</span><br>r2 = x.<span class="hljs-built_in">load</span>(std::memory_order_relaxed); <span class="hljs-comment">// C </span><br>y.<span class="hljs-built_in">store</span>(<span class="hljs-number">42</span>, std::memory_order_relaxed); <span class="hljs-comment">// D</span><br></code></pre></td></tr></table></figure>
+<p>允许产生<code>r1 == 42 &amp;&amp; r2 == 42</code>的结果，按照下面顺序排列</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp">y.<span class="hljs-built_in">store</span>(<span class="hljs-number">42</span>, std::memory_order_relaxed); <span class="hljs-comment">// D</span><br>r1 = y.<span class="hljs-built_in">load</span>(std::memory_order_relaxed); <span class="hljs-comment">// A</span><br>x.<span class="hljs-built_in">store</span>(r1, std::memory_order_relaxed); <span class="hljs-comment">// B</span><br>r2 = x.<span class="hljs-built_in">load</span>(std::memory_order_relaxed); <span class="hljs-comment">// C </span><br></code></pre></td></tr></table></figure>
+<p>因为即使A在线程1先序于B，C在线程2先序于D，并没有阻止在修改y的顺序的时候D发生在A前面，修改x的顺序的时候B发生在C前面。D在y上的副效应对于线程1中A加载是可见的，同样B在x上的副效应对于线程2中的C加载是可见的。尤其在线程2中D在C前完成这更加可能发生，或者是由于编译器重新排序或者在运行时。</p>
+<p>即使是使用宽松顺序，凭空（out-of-thin-air）值也不允许循环依赖自己的计算，例如</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// Thread 1;</span><br>r1 = y.<span class="hljs-built_in">load</span>(std::memory_order_relaxed);<br><span class="hljs-keyword">if</span> (r1 == <span class="hljs-number">42</span>) x.<span class="hljs-built_in">store</span>(r1, std::memory_order_relaxed);<br><span class="hljs-comment">// Thread 2;</span><br>r2 = x.<span class="hljs-built_in">load</span>(std::memory_order_relaxed);<br><span class="hljs-keyword">if</span> (r2 == <span class="hljs-number">42</span>) y.<span class="hljs-built_in">store</span>(<span class="hljs-number">42</span>, std::memory_order_relaxed);<br><br></code></pre></td></tr></table></figure>
+<p>它不允许产生<code>r1 == r2 == 42</code>因为42存储到y只有在x存储了42，循环依赖了存储42到y。直到C++14，这个都被允许，但是不推荐真的去用</p>
+<p>通常宽松顺序用在计数变量，比如<code>std::shared_ptr</code>里面的引用计数器，因为它只要求原子性，但不需要顺序和同步（<strong>但是减少计数器值需要在析构函数用到获取释放(acquire-release)同步机制</strong>）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;atomic&gt;</span></span><br> <br>std::atomic&lt;<span class="hljs-keyword">int</span>&gt; cnt = &#123;<span class="hljs-number">0</span>&#125;;<br> <br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> n = <span class="hljs-number">0</span>; n &lt; <span class="hljs-number">1000</span>; ++n) &#123;<br>        cnt.<span class="hljs-built_in">fetch_add</span>(<span class="hljs-number">1</span>, std::memory_order_relaxed);<br>    &#125;<br>&#125;<br> <br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    std::vector&lt;std::thread&gt; v;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> n = <span class="hljs-number">0</span>; n &lt; <span class="hljs-number">10</span>; ++n) &#123;<br>        v.<span class="hljs-built_in">emplace_back</span>(f);<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; t : v) &#123;<br>        t.<span class="hljs-built_in">join</span>();<br>    &#125;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Final counter value is &quot;</span> &lt;&lt; cnt &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs oxygene"><span class="hljs-keyword">Final</span> counter value <span class="hljs-keyword">is</span> <span class="hljs-number">10000</span><br></code></pre></td></tr></table></figure>
+<h3 id="释放获得顺序（Release-Acquire-ordering）"><a href="#释放获得顺序（Release-Acquire-ordering）" class="headerlink" title="释放获得顺序（Release-Acquire ordering）"></a>释放获得顺序（Release-Acquire ordering）</h3><p>如果在线程A存储的原子变量被标记为<code>memory_order_release</code>同时同一个原子变量在线程B中被使用<code>memory_order_acquire</code>加载，所有在线程A视角看来的先发生于原子存储的写入（非原子的或宽松原子的），都成为线程B的可见副作用。一旦原子加载完成，线程B能够保证观察到线程A中的所有写入。</p>
+<p>If an atomic store in thread A is tagged memory_order_release and an atomic load in thread B from the same variable is tagged memory_order_acquire, all memory writes (non-atomic and relaxed atomic) that happened-before the atomic store from the point of view of thread A, become visible side-effects in thread B. That is, once the atomic load is completed, thread B is guaranteed to see everything thread A wrote to memory. </p>
+<p>若线程 A 中的一个原子存储带标签 memory_order_release ，而线程 B 中来自同一变量的原子加载带标签 memory_order_acquire ，则从线程 A 的视角先发生于原子存储的所有内存写入（非原子及宽松原子的），在线程 B 中成为可见副效应，即一旦原子加载完成，则保证线程 B 能观察到线程 A 写入内存的所有内容。 </p>
+<p>该同步只发生在相同原子变量的释放和获取。其他线程能见到与被同步线程的一者或两者相异的内存访问顺序。 </p>
+<p>在强顺序系统（ x86 、 SPARC TSO 、 IBM 主框架）上，释放获得顺序对于多数操作是自动进行的。无需为此同步模式添加额外的 CPU 指令，只有某些编译器优化受影响（例如，编译器被禁止将非原子存储移到原子存储-释放后，或将非原子加载移到原子加载-获得前）。在弱顺序系统（ ARM 、 Itanium 、 Power PC ）上，必须使用特别的 CPU 加载或内存栅栏指令。 </p>
+<p>互斥锁（例如 std::mutex 或原子自旋锁）是释放获得同步的例子：线程 A 释放锁而线程 B 获得它时，发生于线程 A 环境的临界区（释放之前）中的所有事件，必须对于执行同一临界区的线程 B （获得之后）可见。 </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;atomic&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cassert&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span><br><br>std::atomic&lt;std::string *&gt; ptr;<br><span class="hljs-keyword">int</span> data;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">producer</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    std::string *p = <span class="hljs-keyword">new</span> std::<span class="hljs-built_in">string</span>(<span class="hljs-string">&quot;Hello&quot;</span>);<br>    data = <span class="hljs-number">42</span>;<br>    ptr.<span class="hljs-built_in">store</span>(p, std::memory_order_release);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">consumer</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    std::string *p2;<br>    <span class="hljs-keyword">while</span> (!(p2 = ptr.<span class="hljs-built_in">load</span>(std::memory_order_acquire)));<br>    <span class="hljs-built_in">assert</span>(*p2 == <span class="hljs-string">&quot;Hello&quot;</span>); <span class="hljs-comment">// never fires</span><br>    <span class="hljs-built_in">assert</span>(data == <span class="hljs-number">42</span>); <span class="hljs-comment">// never fires</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">std::thread <span class="hljs-title">t1</span><span class="hljs-params">(producer)</span></span>;<br>    <span class="hljs-function">std::thread <span class="hljs-title">t2</span><span class="hljs-params">(consumer)</span></span>;<br>    t1.<span class="hljs-built_in">join</span>();<br>    t2.<span class="hljs-built_in">join</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>下例演示三个线程间传递性的释放获得顺序</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;atomic&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cassert&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span><br><br>std::vector&lt;<span class="hljs-keyword">int</span>&gt; data;<br>std::atomic&lt;<span class="hljs-keyword">int</span>&gt; flag = &#123;<span class="hljs-number">0</span>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">thread_1</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    data.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">42</span>);<br>    flag.<span class="hljs-built_in">store</span>(<span class="hljs-number">1</span>, std::memory_order_release);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">thread_2</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> expected = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (!flag.<span class="hljs-built_in">compare_exchange_strong</span>(expected, <span class="hljs-number">2</span>, std::memory_order_acq_rel)) &#123;<br>        expected = <span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">thread_3</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">while</span> (flag.<span class="hljs-built_in">load</span>(std::memory_order_acquire) &lt; <span class="hljs-number">2</span>);<br>    <span class="hljs-built_in">assert</span>(data.<span class="hljs-built_in">at</span>(<span class="hljs-number">0</span>) == <span class="hljs-number">42</span>); <span class="hljs-comment">// 决不出错</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">std::thread <span class="hljs-title">a</span><span class="hljs-params">(thread_1)</span></span>;<br>    <span class="hljs-function">std::thread <span class="hljs-title">b</span><span class="hljs-params">(thread_2)</span></span>;<br>    <span class="hljs-function">std::thread <span class="hljs-title">c</span><span class="hljs-params">(thread_3)</span></span>;<br>    a.<span class="hljs-built_in">join</span>();<br>    b.<span class="hljs-built_in">join</span>();<br>    c.<span class="hljs-built_in">join</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>该顺序保证了在原子操作之前（代码前面）的其他变量（非原子或者宽松操作）的写入一定会发生在该原子操作的写入之前。</strong></p>
+<h3 id="释放消费顺序（Release-Consume-ordering）"><a href="#释放消费顺序（Release-Consume-ordering）" class="headerlink" title="释放消费顺序（Release-Consume ordering）"></a>释放消费顺序（Release-Consume ordering）</h3><p>如果原子变量存储在线程A中且标为<code>memory_order_release</code>，同时另外一个同样的变量在线程B中读取存储的值标为<code>memory_order_consume</code>，所有的先发生于线程A视角的原子存储的写（非原子或者宽松原子），变成了线程B中这些操作的可见副作用，进入加载操作的携带依赖，一旦原子加载完成，线程B中从加载获取的值的这些操作和函数会被保证可以观察到线程A中所有的内存的写入。</p>
+<p>If an atomic store in thread A is tagged memory_order_release and an atomic load in thread B from the same variable is tagged memory_order_acquire, all memory writes (non-atomic and relaxed atomic) that <em>happened-before</em> the atomic store from the point of view of thread A, become <em>visible side-effects</em> in thread B. That is, once the atomic load is completed, thread B is guaranteed to see everything thread A wrote to memory.</p>
+<p>仅仅当线程之间释放和消费相同的原子变量同步才会发生。其他能够相较于这两个同步线程获取到不同的内存顺序。</p>
+<p>在所有的除去DEC Alpha的主流CPU中，依赖顺序是原子性的，为了这个同步模式没有额外的CPU指令需要发出，仅仅特定的编译器优化受到影响（例如，编译器在涉及依赖链的对象时被禁止随机性加载）。</p>
+<p>通常的对于这个顺序的用例参与读访问而很少写的并发数据结构（路由表，配置，安全策略，防火墙规则等）和使用指针介导（pointer-mediated）发布-订阅场景，当发布者发布一个指针通过消费者能够获取的信息：没有必要让生产者写的所有内存对于消费者可见（可能在弱顺序架构可能是昂贵的操作），这种场景的一个例子是rcu_dereference（Linux 中的RCU）机制。</p>
+<p>可以参考<code>std::kill_dependency</code>和<code>[[carries_dependency]]</code>来细粒度的控制依赖链</p>
+<p>这个指针介入的依赖顺序同步的例子：整数的数据和字符串指针没有数据依赖关系，所以它的值在消费者中是未定义的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;atomic&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cassert&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span><br> <br>std::atomic&lt;std::string*&gt; ptr;<br><span class="hljs-keyword">int</span> data;<br> <br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">producer</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    std::string* p  = <span class="hljs-keyword">new</span> std::<span class="hljs-built_in">string</span>(<span class="hljs-string">&quot;Hello&quot;</span>);<br>    data = <span class="hljs-number">42</span>;<br>    ptr.<span class="hljs-built_in">store</span>(p, std::memory_order_release);<br>&#125;<br> <br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">consumer</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    std::string* p2;<br>    <span class="hljs-keyword">while</span> (!(p2 = ptr.<span class="hljs-built_in">load</span>(std::memory_order_consume)))<br>        ;<br>    <span class="hljs-built_in">assert</span>(*p2 == <span class="hljs-string">&quot;Hello&quot;</span>); <span class="hljs-comment">// 绝无出错： *p2 从 ptr 携带依赖</span><br>    <span class="hljs-built_in">assert</span>(data == <span class="hljs-number">42</span>); <span class="hljs-comment">// 可能也可能不会出错： data 不从 ptr 携带依赖</span><br>&#125;<br> <br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">std::thread <span class="hljs-title">t1</span><span class="hljs-params">(producer)</span></span>;<br>    <span class="hljs-function">std::thread <span class="hljs-title">t2</span><span class="hljs-params">(consumer)</span></span>;<br>    t1.<span class="hljs-built_in">join</span>(); t2.<span class="hljs-built_in">join</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>该顺序保证了在原子操作之前（代码前面）的其他变量（非原子或者宽松操作）其中携带该原子变量依赖变量的写入会发生在该原子操作的写入之前。</strong></p>
+<h3 id="序列一致顺序（Sequentially-consistent-ordering）"><a href="#序列一致顺序（Sequentially-consistent-ordering）" class="headerlink" title="序列一致顺序（Sequentially-consistent ordering）"></a>序列一致顺序（Sequentially-consistent ordering）</h3><p>标记为<code>memory_order_seq_cst</code>不仅仅和释放获取顺序一样（所有在一个线程中先发生于存储操作的在另外进行加载的操作的线程成为可见副作用），还对所有带此标签的内存操作建立单独全序。</p>
+<p>意思是当仅用来读时和<code>memory_order_acquire</code>一致，写时和<code>memory_order_release</code>一致，读写都有时和<code>memory_order_acq_rel</code>一致。</p>
+<p>单独全序，也就是所有的线程会观察到一致的内存修改</p>
+<p>正式的<strong>（C++20前）</strong>，</p>
+<p>每个从原子变量M的内存加载操作<code>memory_order_seq_cst</code>的操作B，观测到如下之一：</p>
+<ul>
+<li>修改M的上一个操作A，A在单独全序中出现在B之前</li>
+<li>或者，如果存在这种操作A，则操作B可能观测到非<code>memory_order_seq_cst</code>且非先发生于A的对于M的一些修改结果</li>
+<li>或者，如果不存在这种操作A，则操作B可能观测到非<code>memory_order_seq_cst</code>的M的一些不相关的修改</li>
+</ul>
+<p>如果是<code>memory_order_seq_cst</code>的<code>std::atomic_thread_fence</code>操作X先序于B，那么B观测到如下之一：</p>
+<ul>
+<li>在单独全序中修改M的上一个<code>memory_order_seq_cst</code>先出现于X操作</li>
+<li>在M的修改顺序中后出现于它的某些 M 的无关联修改</li>
+</ul>
+<p>对于M的一对原子操作A和B，A写B读M的值，如果有两个<code>memory_order_seq_cst</code>的<code>std::atomic_thread_fences</code>X和Y，如果A先序于X，Y先序于B，X在单独全序中先出现于Y，则B观察到二者之一：</p>
+<ul>
+<li>A的效应</li>
+<li>某些在 M 的修改顺序中后出现于 A 的无关联修改</li>
+</ul>
+<p>对于M的一对原子操作A和B，若符合下列条件之一，则M的修改顺序中B后发生于A</p>
+<ul>
+<li>存在一个<code>memory_order_seq_cst</code>的<code>std::atomic_thread_fence</code>X，它满足A先序于X，且X在单独全序中先出现于B</li>
+<li>或者，存在一个<code>memory_order_seq_cst</code>的<code>std::atomic_thread_fence</code>Y，满足Y先序于B且A在单独全序中先出现于B</li>
+<li>或者，存在两个<code>memory_order_seq_cst</code>的<code>std::atomic_thread_fence</code>X和Y，A先序于X，Y先序于B，X在单独全序中先出现于Y</li>
+</ul>
+<p>注意这表明：</p>
+<ol>
+<li>只要不带<code>memory_order_seq_cst</code>标签的原子操作进入局面，则立即丧失序列一致性</li>
+<li>序列一致栅栏（sequentially-consistent fences）仅为栅栏自身建立全序，而不为通常情况下的原子操作建立（先序于不是跨线程关系，不同于先发生于）</li>
+</ol>
+<p>正式的<strong>（C++20）</strong>，</p>
+<p>某原子对象 M 上的原子操作连贯先序于 M 上的另一原子操作 B ，若下列任一为真： </p>
+<ol>
+<li>A是修改，B读取A存储的值</li>
+<li>在M的修改顺序中A先于B</li>
+<li>A读取原子修改操作M存储的值，X在修改顺序中先于B，同时A和B不是相同的读-修改-写操作</li>
+<li>A 连贯先序于X，而X连贯先序于B</li>
+</ol>
+<p>所有的<code>memory_order_seq_cst</code>操作，包括围栏（fences）上，有单独全序S，满足以下制约条件：</p>
+<ol>
+<li>如果A和B都是<code>memory_order_seq_cst</code>操作，A强先发生于B，那么A在S中前于B</li>
+<li>对于对象M上的每对原子操作A和B，其中A连贯先序于B：<br> a. 如果A和B都是<code>memory_order_seq_cst</code>操作，那么A在S中前于B<br> b. 如果A是<code>memory_order_seq_cst</code>操作，B先发生于<code>memory_order_seq_cst</code>围栏Y，那么A在S中前于Y<br> c. 如果X是<code>memory_order_seq_cst</code>围栏且先发生于A，B是<code>memory_order_seq_cst</code>操作，那么X在S中前于B<br> d. 如果X是<code>memory_order_seq_cst</code>围栏且先发生于A，B先发生于<code>memory_order_seq_cst</code>围栏Y，那么X在S中前于Y</li>
+</ol>
+<p>这些正式的定义确保了：</p>
+<ol>
+<li>单独全序与任何原子对象的修改顺序一致</li>
+<li>一个<code>memory_order_seq_cst</code>加载要么从上一个<code>memory_order_seq_cst</code>修改获取值，要么从一些不是先发生于<code>memory_order_seq_cst</code>修改的非<code>memory_order_seq_cst</code>修改中获取值</li>
+</ol>
+<p>单独全序可能与先发生于不一致。这允许在CPU上更加有效率的实现<code>memory_order_acquire</code>和<code>memory_order_release</code>。当<code>memory_order_acquire</code>和<code>memory_order_release</code>和<code>memory_order_seq_cst</code>混合时能产生惊异的结果。</p>
+<p>例如，x，y的初始值为0，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp">x = <span class="hljs-number">0</span>;<br>y = <span class="hljs-number">0</span>;<br><span class="hljs-comment">// Thread 1:</span><br>x.<span class="hljs-built_in">store</span>(<span class="hljs-number">1</span>, std::memory_order_seq_cst); <span class="hljs-comment">// A</span><br>y.<span class="hljs-built_in">store</span>(<span class="hljs-number">1</span>, std::memory_order_release); <span class="hljs-comment">// B</span><br><span class="hljs-comment">// Thread 2:</span><br>r1 = y.<span class="hljs-built_in">fetch_add</span>(<span class="hljs-number">1</span>, std::memory_order_seq_cst); <span class="hljs-comment">// C</span><br>r2 = y.<span class="hljs-built_in">load</span>(std::memory_order_relaxed); <span class="hljs-comment">// D</span><br><span class="hljs-comment">// Thread 3:</span><br>y.<span class="hljs-built_in">store</span>(<span class="hljs-number">3</span>, std::memory_order_seq_cst); <span class="hljs-comment">// E</span><br>r3 = x.<span class="hljs-built_in">load</span>(std::memory_order_seq_cst); <span class="hljs-comment">// F</span><br></code></pre></td></tr></table></figure>
+<p>允许产生<code>r1 == 1 &amp;&amp; r2 == 3 &amp;&amp; r3 == 0</code>的结果，当A先发生于C，但是在<code>memory_order_seq_cst</code>的单独全序C-E-F-A中C前于的A。</p>
+<p>注意：</p>
+<ol>
+<li>一旦不带 memory_order_seq_cst 标签的原子操作进入局面，程序的序列一致保证就会立即丧失</li>
+<li>多数情况下， memory_order_seq_cst 原子操作相对于同一线程所进行的其他原子操作可重排 </li>
+</ol>
+<p>在多生产者多消费者的情形中序列顺序是必要的，当所有的消费者必须以相同的顺序观察生产者中发生的动作。</p>
+<p>全序顺序在所有的多核系统中需要完全的内存栅栏CPU指令。这可能会成为性能瓶颈因为它强制受影响的内存访问传播到每个核。</p>
+<p>这个例子演示了序列顺序是必要的情形。其他任何顺序都会触发断言因为这可能会导致线程c和d用相反的顺序观察原子变量x和y的改变</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;atomic&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cassert&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><br>std::atomic&lt;<span class="hljs-keyword">bool</span>&gt; x = &#123;<span class="hljs-literal">false</span>&#125;;<br>std::atomic&lt;<span class="hljs-keyword">bool</span>&gt; y = &#123;<span class="hljs-literal">false</span>&#125;;<br>std::atomic&lt;<span class="hljs-keyword">int</span>&gt; z = &#123;<span class="hljs-number">0</span>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">write_x</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    x.<span class="hljs-built_in">store</span>(<span class="hljs-literal">true</span>, std::memory_order_seq_cst);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">write_y</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    y.<span class="hljs-built_in">store</span>(<span class="hljs-literal">true</span>, std::memory_order_seq_cst);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">read_x_then_y</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">while</span> (!x.<span class="hljs-built_in">load</span>(std::memory_order_seq_cst));<br>    <span class="hljs-keyword">if</span> (y.<span class="hljs-built_in">load</span>(std::memory_order_seq_cst)) &#123;<br>        ++z;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">read_y_then_x</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">while</span> (!y.<span class="hljs-built_in">load</span>(std::memory_order_seq_cst));<br>    <span class="hljs-keyword">if</span> (x.<span class="hljs-built_in">load</span>(std::memory_order_seq_cst)) &#123;<br>        ++z;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">std::thread <span class="hljs-title">a</span><span class="hljs-params">(write_x)</span></span>;<br>    <span class="hljs-function">std::thread <span class="hljs-title">b</span><span class="hljs-params">(write_y)</span></span>;<br>    <span class="hljs-function">std::thread <span class="hljs-title">c</span><span class="hljs-params">(read_x_then_y)</span></span>;<br>    <span class="hljs-function">std::thread <span class="hljs-title">d</span><span class="hljs-params">(read_y_then_x)</span></span>;<br>    a.<span class="hljs-built_in">join</span>(); b.<span class="hljs-built_in">join</span>(); c.<span class="hljs-built_in">join</span>(); d.<span class="hljs-built_in">join</span>();<br>    <span class="hljs-built_in">assert</span>(z.<span class="hljs-built_in">load</span>() != <span class="hljs-number">0</span>);  <span class="hljs-comment">// 决不发生</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><blockquote>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.cppreference.com/w/cpp/atomic/memory_order">https://en.cppreference.com/w/cpp/atomic/memory_order</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.cppreference.com/w/cpp/atomic/memory_order">https://zh.cppreference.com/w/cpp/atomic/memory_order</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.cppreference.com/w/cpp/atomic/atomic_thread_fence">https://en.cppreference.com/w/cpp/atomic/atomic_thread_fence</a></p>
+</blockquote>
+<p>注：cppreference中文翻译中有很多错误，建议对照英文看</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/30/Ubuntu%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Ubuntu使用问题记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/04/C++%E5%B9%B6%E5%8F%91%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">C++并发笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "L1NVVQMKRMoYHH4mknhB0VAg-gzGzoHsz",
+          app_key: "GahRa5GMtjARXXjxHRMwlNKN",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

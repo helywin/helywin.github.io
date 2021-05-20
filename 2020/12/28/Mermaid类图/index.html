@@ -1,0 +1,729 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="人生は自分を探す旅です">
+  <meta name="author" content="helywin">
+  <meta name="keywords" content="">
+  <title>Mermaid类图 - 封楚寒的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"helywin.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":"82483a4063048e6739e27af68e9a44d3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>封楚寒的小窝</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/plan/">
+                <i class="iconfont icon-plan"></i>
+                计划
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/music/">
+                <i class="iconfont icon-music"></i>
+                音乐
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:" rel="external nofollow noreferrer">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s3.ax1x.com/2020/12/27/r5QtHK.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Mermaid类图">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      helywin
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-28 14:07" pubdate>
+        2020年12月28日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      797 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Mermaid类图</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年5月20日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="Mermaid类图"><a href="#Mermaid类图" class="headerlink" title="Mermaid类图"></a>Mermaid类图</h1><p>原文 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://mermaid-js.github.io/mermaid/#/classDiagram">Class Diagram</a></p>
+<p>类图用于面向对象对于应用结构概念建模, 也用于把具体的模型翻译成程序代码. 类图也可以用于数据建模</p>
+<p>mermaid渲染:</p>
+<pre><code class=" mermaid">classDiagram
+
+Animal &lt;|-- Duck
+Animal &lt;|-- Fish
+Animal &lt;|-- Zebra
+Animal : +int age
+Animal : +String gender
+Animal: +isMammal()
+Animal: +mate()
+class Duck&#123;
+    +String beakColor
+    +swim()
+    +quack()
+&#125;
+class Fish&#123;
+    -int sizeInFeet
+    -canEat()
+&#125;
+class Zebra&#123;
+    +bool is_wild
+    +run()
+&#125;
+</code></pre>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><h3 id="类结构"><a href="#类结构" class="headerlink" title="类结构"></a>类结构</h3><p>顶部代表类名称, 中部代表类成员变量, 底部代表类成员函数</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">classDiagram</span><br><span class="hljs-variable">class</span> <span class="hljs-variable">BankAccount</span> &#123;<br>    +<span class="hljs-variable">String</span> <span class="hljs-variable">ower</span><br>    +<span class="hljs-variable">Bigdecimal</span> <span class="hljs-variable">balance</span><br>    +<span class="hljs-function"><span class="hljs-title">deposit</span>(<span class="hljs-variable">amount</span>)</span><br>    +<span class="hljs-function"><span class="hljs-title">withdraw</span>(<span class="hljs-variable">amount</span>)</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class=" mermaid">classDiagram
+class BankAccount &#123;
+    +String ower
+    +Bigdecimal balance
+    +deposit(amount)
+    +withdraw(amount)
+&#125;
+</code></pre>
+<h2 id="定义类"><a href="#定义类" class="headerlink" title="定义类"></a>定义类</h2><ul>
+<li>显示声明: <code>class Animal</code></li>
+<li>通过关系声明 <code>Vehicle &lt;|-- Car</code></li>
+</ul>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript">classDiagram<br><span class="hljs-built_in">class</span> Animal<br>Vehicle &lt;|<span class="hljs-comment">-- Car</span><br></code></pre></td></tr></table></figure>
+<pre><code class=" mermaid">classDiagram
+
+class Animal
+Vehicle &lt;|-- Car
+</code></pre>
+<h2 id="定义类的成员"><a href="#定义类的成员" class="headerlink" title="定义类的成员"></a>定义类的成员</h2><p>包括了属性和方法, 还有额外信息</p>
+<p>区分方法和属性的决定性符号是<code>()</code>, 定义类成员有两种办法</p>
+<ul>
+<li>类外定义</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">classDiagram<br><span class="hljs-keyword">class</span> <span class="hljs-symbol">Dog</span><br><span class="hljs-symbol">Dog</span> : +<span class="hljs-symbol">String</span> <span class="hljs-symbol">name</span><br><span class="hljs-symbol">Dog</span> : +<span class="hljs-symbol">bark</span>()<br><span class="hljs-symbol">Dog</span> : +<span class="hljs-symbol">eat</span>(<span class="hljs-symbol">food</span>) <span class="hljs-symbol">bool</span><br></code></pre></td></tr></table></figure>
+<pre><code class=" mermaid">classDiagram
+class Dog
+Dog : +String name
+Dog : +bark()
+Dog : +eat(food) bool
+</code></pre>
+<ul>
+<li>类内部定义, 用大括号</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">classDiagram<br><span class="hljs-keyword">class</span> <span class="hljs-symbol">Dog</span> &#123;<br>    +String name<br>    +bark()<br>    +eat(food) <span class="hljs-built_in">bool</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class=" mermaid">classDiagram
+class Dog &#123;
+    +String name
+    +bark()
+    +eat(food) bool
+&#125;
+</code></pre>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>返回值在右括号后面添加</p>
+<h2 id="泛型类型"><a href="#泛型类型" class="headerlink" title="泛型类型"></a>泛型类型</h2><p>泛型用<code>~</code>代替两个尖括号</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">classDiagram<br><span class="hljs-keyword">class</span> Squre~Shape~&#123;<br>    <span class="hljs-built_in">int</span> id<br>    List~<span class="hljs-built_in">int</span>~ position<br>    set<span class="hljs-constructor">Points(List<span class="hljs-params">~int</span>~ <span class="hljs-params">points</span>)</span><br>    get<span class="hljs-constructor">Points()</span> List~<span class="hljs-built_in">int</span>~<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class=" mermaid">classDiagram
+class Squre~Shape~&#123;
+    int id
+    List~int~ position
+    setPoints(List~int~ points)
+    getPoints() List~int~
+&#125;
+</code></pre>
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>类成员的可见性有四种:</p>
+<ul>
+<li><code>+</code> public</li>
+<li><code>-</code> private</li>
+<li><code>#</code> protected</li>
+<li><code>~</code> package/internal</li>
+</ul>
+<p>还有静态和虚函数</p>
+<ul>
+<li><code>*</code> abstract: <code>someAbstractMethod()*</code></li>
+<li><script type="math/tex; mode=display">` static: `someStaticMethod()</script></li>
+</ul>
+<h2 id="定义关系"><a href="#定义关系" class="headerlink" title="定义关系"></a>定义关系</h2><p>主要语法:</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">[classA][Arrow][ClassB]<span class="hljs-symbol">:LabelText</span><br></code></pre></td></tr></table></figure>
+<p>不同箭头代表的意思:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;&brvbar;—</code></td>
+<td>(Inheritance)继承</td>
+</tr>
+<tr>
+<td><code>*--</code></td>
+<td>(Composition)组合</td>
+</tr>
+<tr>
+<td><code>o--</code></td>
+<td>(Aggregation)聚合</td>
+</tr>
+<tr>
+<td><code>--&gt;</code></td>
+<td>(Association)关联</td>
+</tr>
+<tr>
+<td><code>--</code></td>
+<td>(Link)实线连接</td>
+</tr>
+<tr>
+<td><code>..&gt;</code></td>
+<td>(Dependency)依赖</td>
+</tr>
+<tr>
+<td><code>..&brvbar;&gt;</code></td>
+<td>(Realization)实现</td>
+</tr>
+<tr>
+<td><code>..</code></td>
+<td>(Link)虚线连接</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">classDiagram<br>classA &lt;<span class="hljs-pattern-match">|-- <span class="hljs-keyword">class</span><span class="hljs-constructor">B</span> : <span class="hljs-constructor">Inheritance</span></span><br><span class="hljs-pattern-match"><span class="hljs-keyword">class</span><span class="hljs-constructor">C</span> <span class="hljs-operator">*</span>-- <span class="hljs-keyword">class</span><span class="hljs-constructor">D</span> : <span class="hljs-constructor">Composition</span></span><br><span class="hljs-pattern-match"><span class="hljs-keyword">class</span><span class="hljs-constructor">E</span> o-- <span class="hljs-keyword">class</span><span class="hljs-constructor">F</span> : <span class="hljs-constructor">Aggregation</span></span><br><span class="hljs-pattern-match"><span class="hljs-keyword">class</span><span class="hljs-constructor">G</span> &lt;-- <span class="hljs-keyword">class</span><span class="hljs-constructor">H</span> : <span class="hljs-constructor">Association</span></span><br><span class="hljs-pattern-match"><span class="hljs-keyword">class</span><span class="hljs-constructor">I</span> -- <span class="hljs-keyword">class</span><span class="hljs-constructor">J</span> : <span class="hljs-constructor">Link</span></span><br><span class="hljs-pattern-match"><span class="hljs-keyword">class</span><span class="hljs-constructor">K</span> &lt;.. <span class="hljs-keyword">class</span><span class="hljs-constructor">L</span> : <span class="hljs-constructor">Dependency</span></span><br><span class="hljs-pattern-match"><span class="hljs-keyword">class</span><span class="hljs-constructor">M</span> &lt;|.. <span class="hljs-keyword">class</span><span class="hljs-constructor">N</span> : <span class="hljs-constructor">Realization</span></span><br><span class="hljs-pattern-match"><span class="hljs-keyword">class</span><span class="hljs-constructor">O</span> .. <span class="hljs-keyword">class</span><span class="hljs-constructor">P</span> : <span class="hljs-constructor">Link</span></span><br></code></pre></td></tr></table></figure>
+<pre><code class=" mermaid">classDiagram
+classA &lt;|-- classB : Inheritance
+classC *-- classD : Composition
+classE o-- classF : Aggregation
+classG &lt;-- classH : Association
+classI -- classJ : Link
+classK &lt;.. classL : Dependency
+classM &lt;|.. classN : Realization
+classO .. classP : Link
+</code></pre>
+<p>把箭头反向也可以用</p>
+<h2 id="多重和乘数关系"><a href="#多重和乘数关系" class="headerlink" title="多重和乘数关系"></a>多重和乘数关系</h2><p>一般用在Link关系上, 表示类间的关系</p>
+<ul>
+<li><code>1</code> 只有1个</li>
+<li><code>0..1</code> 0个或1个</li>
+<li><code>1..*</code> 1个或多个</li>
+<li><code>*</code> 多个</li>
+<li><code>n</code> n个{n&gt;1}</li>
+<li><code>0..n</code> 0~n {n&gt;1}</li>
+<li><code>1..n</code> 1~n {n&gt;1}</li>
+</ul>
+<p>样式(也可以在引号内写自己的文本):</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">[classA] <span class="hljs-string">&quot;cardinality1&quot;</span> [arrow] <span class="hljs-string">&quot;cardinality2&quot;</span> [classB]<span class="hljs-symbol">:LabelText</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xl">classDiagram<br>C<span class="hljs-function"><span class="hljs-title">ustomer</span> &quot;1&quot; --&gt;</span> <span class="hljs-string">&quot;*&quot;</span> Ticket<br>S<span class="hljs-function"><span class="hljs-title">tudent</span> &quot;1&quot; --&gt;</span> <span class="hljs-string">&quot;1..*&quot;</span> Course<br>G<span class="hljs-function"><span class="hljs-title">laxy</span> --&gt;</span> <span class="hljs-string">&quot;many&quot;</span> Star : Contains<br></code></pre></td></tr></table></figure>
+<pre><code class=" mermaid">classDiagram
+Customer &quot;1&quot; --&gt; &quot;*&quot; Ticket
+Student &quot;1&quot; --&gt; &quot;1..*&quot; Course
+Glaxy --&gt; &quot;many&quot; Star : Contains
+</code></pre>
+<h2 id="类的注解"><a href="#类的注解" class="headerlink" title="类的注解"></a>类的注解</h2><p>对类进行文本标识像元信息, 对性质进行清晰的指示, 例如:</p>
+<ul>
+<li><code>&lt;&lt;interface&gt;&gt;</code> 接口类</li>
+<li><code>&lt;&lt;abstract&gt;&gt;</code> 抽象类</li>
+<li><code>&lt;&lt;service&gt;&gt;</code> 服务类</li>
+<li><code>&lt;&lt;enumeration&gt;&gt;</code> 枚举</li>
+</ul>
+<p>在单独的行声明:</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">classDiagram<br><span class="hljs-keyword">class</span> Shape&#123;<br>    draw()*<br>&#125;<br><span class="hljs-symbol">&lt;&lt;interface&gt;&gt;</span> Shape<br></code></pre></td></tr></table></figure>
+<pre><code class=" mermaid">classDiagram
+class Shape&#123;
+    draw()*
+&#125;
+&lt;&lt;interface&gt;&gt; Shape
+</code></pre>
+<p>在类内部:</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">classDiagram<br><span class="hljs-keyword">class</span> Shape&#123;<br>    <span class="hljs-symbol">&lt;&lt;interface&gt;&gt;</span><br>    draw()*<br>    count()$<br>    size()<br>&#125;<br><br><span class="hljs-keyword">class</span> Color&#123;<br>    <span class="hljs-symbol">&lt;&lt;enumeration&gt;&gt;</span><br>    RED<br>    BLUE<br>    GREEN<br>    WHITE<br>    BLACK<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class=" mermaid">classDiagram
+class Shape&#123;
+    &lt;&lt;interface&gt;&gt;
+    draw()*
+    count()$
+    size()
+&#125;
+
+class Color&#123;
+    &lt;&lt;enumeration&gt;&gt;
+    RED
+    BLUE
+    GREEN
+    WHITE
+    BLACK
+&#125;
+</code></pre>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>mermaid注释用<code>%%</code>开头</p>
+<h2 id="交互"><a href="#交互" class="headerlink" title="交互"></a>交互</h2><p>绑定鼠标点击事件到浏览器: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://mermaid-js.github.io/mermaid/#/classDiagram?id=interaction">Interaction</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/uml/">uml</a>
+                    
+                      <a class="hover-with-bg" href="/tags/mermaid/">mermaid</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/12/28/%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">图像去雾</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">设计模式笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "L1NVVQMKRMoYHH4mknhB0VAg-gzGzoHsz",
+          app_key: "GahRa5GMtjARXXjxHRMwlNKN",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
